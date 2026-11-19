@@ -398,3 +398,15 @@ G5 达到 5/8 且都是"到点 + 按顺序经过全部地标"。这正是 idea1 
 ---
 
 （后续阶段记录追加在下方）
+
+### 4.5 仓库卫生：仿真运行时写入的 settings 文件曾被误提交（已回滚）
+
+AirVLNSimulatorServerTool.py 每次启动都会写 AeroVLA/airsim_plugin/settings/<port>/settings.json，
+git add -A 会把它们当作改动提交。已在 commit 996f922 中：
+把 AeroVLA/ 恢复到 aseline-v0 的内容、删除新增端口目录、并把该目录加入 .gitignore。
+现在 git diff baseline-v0 -- AeroVLA/ **为空**，可以用一条命令复核：
+```
+git diff --stat baseline-v0 -- AeroVLA/   # 期望：无输出
+```
+（注意：以后每次跑完仿真仍会重新生成这些文件，提交前需 git checkout -- AeroVLA/ 或
+git clean -fd AeroVLA/airsim_plugin/settings/；这一点已写进 README 的注意事项。）
