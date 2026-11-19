@@ -1,0 +1,6318 @@
+{
+ "summary": {
+  "map": "ModernCityMap",
+  "split": "seen_valset",
+  "tasks_total": 124,
+  "tasks_usable": 123,
+  "tasks_skipped": 1,
+  "expert_accepted": 123,
+  "expert_accepted_independent_semantics": 123,
+  "negative_cases_total": 497,
+  "negative_cases_passed": 497,
+  "tasks_all_checks_ok": 123,
+  "tasks_with_failing_negative": 0,
+  "tasks_expert_failed": 0,
+  "judge_disagreements": 0,
+  "stage_histogram": {
+   "2": 59,
+   "3": 33,
+   "4": 31
+  },
+  "st_rt_histogram": {
+   "RT": 35,
+   "ST": 88
+  }
+ },
+ "results": [
+  {
+   "task_id": "ModernCityMap/84eabab1-99ff-4cb8-bde9-ad9459196148",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 130,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/cad7a3ae-d2e2-4e4b-8ddb-50749f0eb240",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 118,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/9d7f7149-7a1e-4e12-9250-9b673c33ded7",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 144,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/80c8691c-1bb3-46ca-a51f-1faca2851456",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 150,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/f14e7115-e964-47b9-89cf-b6069541ba8c",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 111,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6badc126-d716-494e-ac36-f5656656f071",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 163,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/f77d0864-4077-40c1-a425-ae4f1e1d51a9",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 133,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/8a24d51d-4661-4ba4-a50c-be5879418df0",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 163,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6d1df58d-3b81-48d5-9cce-f80f4ab48c20",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 165,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/52eb0469-3bf8-4a19-bbb7-5c6f3a1f6cd0",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 92,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/f6c7bd2a-3d26-443b-9576-0d3548f6928e",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 109,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/196334ed-54be-40f2-864a-3eb94b59b4cc",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 164,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a1f795fe-fe92-4a40-9b9d-f259e8a4e12c",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 154,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/91f75e27-e708-49be-9ff5-a242ba6278e4",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 69,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/dc55f10b-ab4e-4a21-81cb-72a22167c6ba",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 105,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/98e210bb-6593-4dff-af39-c0eecfeedda3",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 83,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/928aab24-5ec5-45f3-8a86-675dad1d2006",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 126,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/ff530b9f-3727-4936-9bf1-69400560c257",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 87,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6b33f15d-2445-4325-a7ad-81b8968d0d3e",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 83,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/ba1954aa-ab46-42f2-920d-dbefbe5acf9b",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 65,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/982c8942-8ff0-41c8-8c37-b2741bab1cd8",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 133,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/89d907dc-c817-4ee1-bd3c-ec5d1c4b4c97",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 94,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/c8e7469a-503d-4ec3-815e-203f4b8a4370",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 196,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/71108556-bce9-441f-ace4-a3b351de20ed",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 103,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/9812065a-12b8-4a42-b6e1-47c83f8fffe6",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 136,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/8daaf47b-a164-49f8-b6f8-3e63fae02f72",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 105,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6452f234-efba-4088-bc9a-39130a811007",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 86,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a03c7240-325a-4e30-a187-3b4016f2e371",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 77,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/4ee6d7d9-d1dd-407d-8f8a-083c3853a4ec",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 82,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/e55fb460-91f8-4f52-8504-3c16ce5f86d8",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 87,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/00ac4ad3-1b8b-410d-9abc-43b65186571f",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 157,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/0924ab9d-9c80-4088-beb6-bc2b93a687c5",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 114,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/25940dbc-1368-4f7d-9250-e1843dfcfe65",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 86,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/521576c2-5aa4-4bba-affa-a0e831a696da",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 72,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/61df0d3b-bfc5-40d9-a0bb-e11b437d6f2c",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 107,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/7b5eab53-0102-423b-b058-a086c661f394",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 117,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/d5303c79-a3e9-486e-9da4-d2915ec6294d",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 81,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/4f9a5f64-6c93-4501-a271-000b2f1c558c",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 208,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a04d1fec-4ecf-480f-9dd4-d9197475cc16",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 104,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/8285681c-d33a-4b60-8ebf-3ac47b465658",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 86,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/1b8efdb1-79ec-41da-9f05-f4c1425861a6",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 103,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/b1f2e8ef-b452-4b4e-91ee-7f081a5bb2c2",
+   "skipped": true,
+   "reason": "expert_trajectory_does_not_accept"
+  },
+  {
+   "task_id": "ModernCityMap/7a08f939-34f2-461e-8706-99a6b7492d49",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 69,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/e319e8e1-93e1-4196-b791-4dfabb42c3eb",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 95,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/e177c7f8-b44c-4607-b35a-bdf12514444f",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 67,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a2625ae8-d423-4708-a6d3-cc33606a7e6e",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 52,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/c0af4055-81c3-48d8-859d-d4bee4671e7b",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 158,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/51acd431-c7e5-40d0-986c-a2b4189303cc",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 80,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/b4c9ebff-6439-4b94-8a00-2d541e9a945f",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 70,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/136604d9-6aff-47bc-a73a-386dfaece74b",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 128,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/baf7a63c-bb3d-4751-b02f-c8757c7b48af",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 107,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/b7f676d6-ecdf-4840-be75-c083348117a3",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 85,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/28a9aa79-ff18-418f-afa1-e49432e249e2",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 123,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/f88d8a82-7212-4ae2-bac8-bffb0faebba8",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 134,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/25620336-ccad-4368-a707-d3cc78fac870",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 141,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/92007001-6fd6-4ab3-a245-108cc8af2691",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 131,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/5762cc30-9ab6-422a-9ddd-37acc49174ce",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 94,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/8c0004b5-7c81-4b8b-851d-9e36f800b74e",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 151,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/c9537b68-69ca-43a0-b322-2462c7c0dc75",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 92,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/1b11065c-79e7-4414-a668-4fef823a8588",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 145,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/d68f0904-35ef-4633-b9e3-59656c4d18c1",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 127,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a280515f-9bd7-4fb3-bbb2-70a13cd3c510",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 149,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/343f9571-0628-45c1-87dd-23c71aea1ce8",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 112,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/611630c3-9786-455e-80d7-b4f2fdb50275",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 183,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/80af493d-7c9c-44ba-a623-0fcf84a1ae78",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 87,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/59776c60-67a3-4b31-b2b3-99810367b925",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 76,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/082bcf7c-d5c0-41e9-bbab-8fcaf23af0e9",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 81,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/7b564c40-4862-44e8-acb3-d82fc2ffe13c",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 92,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/93481a81-48d0-4282-a32b-addb34066712",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 172,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/c3732132-6694-4cee-9f77-1dfa441696f6",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 147,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/9c70897f-a93a-4163-8da6-868a2945c0a6",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 140,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/9b229548-59ca-408b-9616-ce66fec656a4",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 142,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/1dea730b-95db-4637-ba58-a5cff6235f2a",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 139,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/99d67011-ab8b-485a-88e2-cdf9c68453ee",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 81,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/b935fcca-beec-4ba4-93c0-ab578b6b7efe",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 77,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/46106a1d-aea0-4123-89d8-6cdff164a339",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 113,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/7eda8e52-81dd-4604-869e-b0f9e285639b",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 104,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/02d3edf8-8baf-4158-aee2-286dce635c03",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 102,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6bc81d43-186d-438d-89ed-04329b126a73",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 63,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/5def2842-8dd6-4c94-add0-62cb60b371cd",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 70,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/9235255a-5b92-4d68-a7e1-4ad78c1ddb89",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 63,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/c6f1bef9-ceed-4641-8cd1-13e4463b0c4f",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 102,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/234d31f9-bbf5-4e97-8822-902124da6a9e",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 60,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/7e8ab38f-c555-416b-9e6a-99963cfd462d",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 83,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/44f9a56c-df6f-4c24-88cf-cd6d65118733",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 112,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/24718a57-8fa3-4859-9154-db9421945120",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 127,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/4685a1f7-b057-459d-af35-5445e9fbdfa8",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 111,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/23cda8d5-d239-4b15-bcf8-ffdb28a43f07",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 54,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/060c56d9-8c70-4921-a0fe-641112dc6773",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 139,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/249392f7-8340-47c4-af61-4ddfb1a424d5",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 92,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/5e581ac9-6dfa-4e10-a182-f5d9b461652d",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 127,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/071b894c-135b-40bb-9305-c132da19dee7",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 196,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/35503ce1-0661-4150-a9d5-11fd7cb919b0",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 125,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/f42e6ff3-1f24-4dea-8ea6-990784e9df06",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 155,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/afdc7f55-ff9b-4904-ad01-a481021c5474",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 120,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6f56bc1b-9d07-4f5d-abc7-29d417282235",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 95,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/1f90a8a5-a80e-41b9-8a48-8b60af633a51",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 69,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/16ce0da6-cd2f-4d26-9d34-7185a269f0aa",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 80,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/1ea69e8c-a74e-4807-803b-1babc6dbe540",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 131,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/4d0c6483-7c4b-4c92-a747-0097acd132af",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 117,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/d43dd483-c91d-45d2-9e94-9331cfafd8cb",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 156,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/9e327d86-0bfe-43a0-82e1-86ffb6d97977",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 94,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/bf3327dd-0bf6-4d06-a1dd-4a76f854437f",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 56,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/368f2e11-8ad0-46f2-bb85-006a90614487",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 79,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a8c720d9-209b-4b75-aeed-afecd9e0af5c",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 156,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/7df59c20-f745-46f6-a1a7-28773388b064",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 76,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/035a5c5f-0371-4a17-ac78-e7dc94c77c41",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 93,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/10f87f01-a026-447e-aed0-0207b1e4f14d",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 68,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/e271cf57-ec8d-4876-bad4-89bb83ff998d",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 135,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/85fd444f-9c08-4db9-9c7d-1d12373de753",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 67,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/ecdd2a97-5a3d-4626-878b-0abf79115d4f",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 100,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/d60e500c-d4ed-4df5-ab30-0de282ca9f18",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 66,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/28ea8dfd-a967-4d60-80c9-f45f8a46b99c",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 70,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/a45a5217-abd3-403e-845e-082913f0c4ef",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 146,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/740ccc07-f6fa-464c-869a-f3595238ccfa",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 73,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/b300f74c-9113-4d0a-a4be-5e20f2dc5247",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 141,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/bd590ba0-8e8e-49db-9840-d9e3a7e05602",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 74,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/99529949-2a95-47b7-9c4b-91819bb6bf17",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 129,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/2d3d818d-1a01-45eb-b2b1-2eb24589f6d4",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 73,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/6d401640-537b-4d2b-9173-479ce3bfbe7b",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 76,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/0acc8349-36c9-4816-a8d8-a15c101ffe1e",
+   "formula": "F((F((F(g) & L1)) & L0))",
+   "n_stages": 3,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "g"
+   ],
+   "sampling_points": 71,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/3cbbac04-48c4-4e88-9551-646a638b6db8",
+   "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+   "n_stages": 4,
+   "st_rt": "RT",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "L1",
+    "L2",
+    "g"
+   ],
+   "sampling_points": 185,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_L0",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "swapped_first_two",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/1f7bfdf9-8f76-4159-b6dd-3eddf2aff13f",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 209,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  },
+  {
+   "task_id": "ModernCityMap/3738e6c6-c30f-4109-bab9-87f8e67ed682",
+   "formula": "F((F(g) & L0))",
+   "n_stages": 2,
+   "st_rt": "ST",
+   "expert_accepted_online": true,
+   "expert_accepted_independent": true,
+   "experts_agree": true,
+   "events_order": [
+    "L0",
+    "g"
+   ],
+   "sampling_points": 82,
+   "negatives": [
+    {
+     "name": "positive_control",
+     "expected": true,
+     "online": true,
+     "independent": true,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "missing_final_goal",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    },
+    {
+     "name": "reversed",
+     "expected": false,
+     "online": false,
+     "independent": false,
+     "agree": true,
+     "ok": true
+    }
+   ],
+   "negatives_all_ok": true,
+   "judges_agree_everywhere": true
+  }
+ ]
+}

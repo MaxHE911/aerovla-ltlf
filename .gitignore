@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# scratch / large generated artefacts (kept on the data disk instead of in git)
+work/tmp/
+work/logs/
+work/gt_logs/
+*.log
+
+# the data and model directories are symlinks into /mnt/kai_ckp; never commit their content
+AeroVLA/dataset_raw/
+AeroVLA/envs/
+AeroVLA/openvla-7b/
+AeroVLA/checkpoints/aero_vla
+AeroVLA/eval_results/
+
+# editor / OS noise
+.vscode/
+.DS_Store
+Thumbs.db

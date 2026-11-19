@@ -1,0 +1,35 @@
+{
+ "map": "ModernCityMap",
+ "split": "seen_valset",
+ "generator_version": "v1.0.0",
+ "generated_at": "2026-11-20T03:12:19",
+ "split_entries": 2873,
+ "unique_trajectories": 124,
+ "tasks_built": 124,
+ "tasks_usable": 123,
+ "skipped": 1,
+ "skip_reasons": {
+  "expert_trajectory_does_not_accept": 1
+ },
+ "stage_histogram": {
+  "2": 59,
+  "3": 33,
+  "4": 31
+ },
+ "st_rt_histogram": {
+  "RT": 35,
+  "ST": 88
+ },
+ "off_line_only_histogram": {
+  "0/1 off-line": 59,
+  "0/2 off-line": 21,
+  "0/3 off-line": 8,
+  "1/2 off-line": 12,
+  "1/3 off-line": 12,
+  "2/3 off-line": 11
+ },
+ "landmark_separation_check": {
+  "tasks": 123,
+  "tasks_with_close_pair": 0
+ }
+}
