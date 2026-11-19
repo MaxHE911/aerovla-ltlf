@@ -1,0 +1,80 @@
+{
+ "seq": "f14e7115-e964-47b9-89cf-b6069541ba8c",
+ "task_id": "ModernCityMap/f14e7115-e964-47b9-89cf-b6069541ba8c",
+ "map": "ModernCityMap",
+ "mode": "long_instruction",
+ "formula": "F(g)",
+ "st_rt": "RT",
+ "n_stages": 1,
+ "stages": [
+  {
+   "stage_idx": 0,
+   "ap": "g",
+   "asset": "AASM_TrashCan01",
+   "center": [
+    -64.05489349365234,
+    50.93773651123047,
+    -0.48799070715904236
+   ],
+   "description": "The white trash can is placed on a paved sidewalk, surrounded by tall buildings and streetlights, with some trees and plants nearby. The location is within a densely built urban area, and the trash can is situated on a corner with clear pedestrian walkways around it.",
+   "start_step": null,
+   "end_step": null,
+   "entered": false
+  }
+ ],
+ "stage_switches": 0,
+ "steps": 65,
+ "success": false,
+ "oracle_success": false,
+ "collision": true,
+ "early_end": true,
+ "esr_accepted": false,
+ "esr_residual": "F(g)",
+ "esr_violated": false,
+ "final_distance_to_target": 52.267,
+ "events_order": [],
+ "sampling_points": 66,
+ "model_stops": 1,
+ "suppressed_stops": 0,
+ "suppressed_stop_zero_action": 0,
+ "takeovers": 0,
+ "accepted_stops": 1,
+ "violations": 0,
+ "final_target": {
+  "center": [
+   -64.05489349365234,
+   50.93773651123047,
+   -0.48799070715904236
+  ],
+  "asset": "AASM_TrashCan01",
+  "description": "The white trash can is placed on a paved sidewalk, surrounded by tall buildings and streetlights, with some trees and plants nearby. The location is within a densely built urban area, and the trash can is situated on a corner with clear pedestrian walkways around it."
+ },
+ "landmarks": [
+  {
+   "ap": "g",
+   "center": [
+    -64.05489349365234,
+    50.93773651123047,
+    -0.48799070715904236
+   ],
+   "asset": "AASM_TrashCan01",
+   "radius": 12.0,
+   "description": "The white trash can is placed on a paved sidewalk, surrounded by tall buildings and streetlights, with some trees and plants nearby. The location is within a densely built urban area, and the trash can is situated on a corner with clear pedestrian walkways around it.",
+   "area_index": 16
+  }
+ ],
+ "config": {
+  "mode": "long_instruction",
+  "task_json": "/mnt/world_foundational_model/kai/MaxHE/ltlf/work/tasks/tasks_ModernCityMap_seen_valset.json",
+  "gate_enabled": false,
+  "takeover_enabled": false,
+  "takeover_fwd_m": 3.0,
+  "takeover_min_fwd_m": 2.0,
+  "disable_distance_increasing": true,
+  "event_radius_m": 12.0,
+  "max_stages": 4,
+  "log_every_step": true,
+  "seed_note": ""
+ },
+ "sr_and_esr": false
+}

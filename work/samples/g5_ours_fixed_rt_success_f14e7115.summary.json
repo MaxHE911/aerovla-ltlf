@@ -1,0 +1,163 @@
+{
+ "seq": "f14e7115-e964-47b9-89cf-b6069541ba8c",
+ "task_id": "ModernCityMap/f14e7115-e964-47b9-89cf-b6069541ba8c",
+ "map": "ModernCityMap",
+ "mode": "fixed_order",
+ "formula": "F((F((F((F(g) & L2)) & L1)) & L0))",
+ "st_rt": "RT",
+ "n_stages": 4,
+ "stages": [
+  {
+   "stage_idx": 0,
+   "ap": "L0",
+   "asset": "SM_Man39",
+   "center": [
+    -5.934255123138428,
+    8.762683868408203,
+    -0.5104081630706787
+   ],
+   "description": "A man wearing a jacket and dark pants is located on a broad street lined with multi-story buildings; nearby, there are several people walking, benches, trees, a parked bus, and a red vehicle, with streetlights and sidewalk cafes also present in the surroundings.",
+   "start_step": null,
+   "end_step": null,
+   "entered": false
+  },
+  {
+   "stage_idx": 1,
+   "ap": "L1",
+   "asset": "AASM_TravelCase",
+   "center": [
+    -34.054893493652344,
+    8.937736511230469,
+    -1.6863908767700195
+   ],
+   "description": "The yellow travel case is seen placed next to a construction area in an urban city environment, surrounded by tall, modern buildings with brick and concrete facades, close to a red and gray pizzeria sign, and located adjacent to scaffolding and construction fencing.",
+   "start_step": 0,
+   "end_step": 4,
+   "entered": true
+  },
+  {
+   "stage_idx": 2,
+   "ap": "L2",
+   "asset": "AASM_WarningConstruction",
+   "center": [
+    -66.05489349365234,
+    8.937736511230469,
+    -0.3621304929256439
+   ],
+   "description": "The warningconstruction object is located on a city street with multi-story buildings and is near a restaurant with a visible sign; it features a yellow warning barrier positioned close to the sidewalk, surrounded by other street elements such as poles and sparse greenery.",
+   "start_step": 4,
+   "end_step": 12,
+   "entered": true
+  },
+  {
+   "stage_idx": 3,
+   "ap": "g",
+   "asset": "AASM_TrashCan01",
+   "center": [
+    -64.05489349365234,
+    50.93773651123047,
+    -0.48799070715904236
+   ],
+   "description": "The white trash can is placed on a paved sidewalk, surrounded by tall buildings and streetlights, with some trees and plants nearby. The location is within a densely built urban area, and the trash can is situated on a corner with clear pedestrian walkways around it.",
+   "start_step": 12,
+   "end_step": 27,
+   "entered": true
+  }
+ ],
+ "stage_switches": 2,
+ "steps": 27,
+ "success": true,
+ "oracle_success": true,
+ "collision": false,
+ "early_end": false,
+ "esr_accepted": true,
+ "esr_residual": "top",
+ "esr_violated": false,
+ "final_distance_to_target": 1.487,
+ "events_order": [
+  "L0",
+  "L1",
+  "L2",
+  "g"
+ ],
+ "sampling_points": 28,
+ "model_stops": 1,
+ "suppressed_stops": 0,
+ "suppressed_stop_zero_action": 0,
+ "takeovers": 0,
+ "accepted_stops": 1,
+ "violations": 0,
+ "final_target": {
+  "center": [
+   -64.05489349365234,
+   50.93773651123047,
+   -0.48799070715904236
+  ],
+  "asset": "AASM_TrashCan01",
+  "description": "The white trash can is placed on a paved sidewalk, surrounded by tall buildings and streetlights, with some trees and plants nearby. The location is within a densely built urban area, and the trash can is situated on a corner with clear pedestrian walkways around it."
+ },
+ "landmarks": [
+  {
+   "ap": "L0",
+   "center": [
+    -5.934255123138428,
+    8.762683868408203,
+    -0.5104081630706787
+   ],
+   "asset": "SM_Man39",
+   "radius": 12.0,
+   "description": "A man wearing a jacket and dark pants is located on a broad street lined with multi-story buildings; nearby, there are several people walking, benches, trees, a parked bus, and a red vehicle, with streetlights and sidewalk cafes also present in the surroundings.",
+   "area_index": 0
+  },
+  {
+   "ap": "L1",
+   "center": [
+    -34.054893493652344,
+    8.937736511230469,
+    -1.6863908767700195
+   ],
+   "asset": "AASM_TravelCase",
+   "radius": 12.0,
+   "description": "The yellow travel case is seen placed next to a construction area in an urban city environment, surrounded by tall, modern buildings with brick and concrete facades, close to a red and gray pizzeria sign, and located adjacent to scaffolding and construction fencing.",
+   "area_index": 13
+  },
+  {
+   "ap": "L2",
+   "center": [
+    -66.05489349365234,
+    8.937736511230469,
+    -0.3621304929256439
+   ],
+   "asset": "AASM_WarningConstruction",
+   "radius": 12.0,
+   "description": "The warningconstruction object is located on a city street with multi-story buildings and is near a restaurant with a visible sign; it features a yellow warning barrier positioned close to the sidewalk, surrounded by other street elements such as poles and sparse greenery.",
+   "area_index": 11
+  },
+  {
+   "ap": "g",
+   "center": [
+    -64.05489349365234,
+    50.93773651123047,
+    -0.48799070715904236
+   ],
+   "asset": "AASM_TrashCan01",
+   "radius": 12.0,
+   "description": "The white trash can is placed on a paved sidewalk, surrounded by tall buildings and streetlights, with some trees and plants nearby. The location is within a densely built urban area, and the trash can is situated on a corner with clear pedestrian walkways around it.",
+   "area_index": 16
+  }
+ ],
+ "config": {
+  "mode": "fixed_order",
+  "task_json": "/mnt/world_foundational_model/kai/MaxHE/ltlf/work/tasks/tasks_ModernCityMap_seen_valset.json",
+  "gate_enabled": true,
+  "takeover_enabled": true,
+  "takeover_fwd_m": 3.0,
+  "takeover_min_fwd_m": 2.0,
+  "disable_distance_increasing": true,
+  "event_radius_m": 12.0,
+  "max_stages": 4,
+  "log_every_step": true,
+  "seed_note": ""
+ },
+ "sr_and_esr": true
+}
