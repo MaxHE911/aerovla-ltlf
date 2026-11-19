@@ -20,6 +20,8 @@ BATCH=${BATCH:-1}
 SPLIT=${SPLIT:?SPLIT is required}
 SAVE_ROOT=${SAVE_ROOT:-$R/eval_results/_ltlf}
 SKIP_SERVER=${SKIP_SERVER:-0}
+MODEL_BASE=${MODEL_BASE:-$C/openvla-7b}
+MODEL_PATH=${MODEL_PATH:-$C/checkpoints/aero_vla}
 
 abspath(){ case "$1" in /*) echo "$1";; *) echo "$(cd "$(dirname "$1")" 2>/dev/null && pwd)/$(basename "$1")";; esac; }
 SPLIT=$(abspath "$SPLIT")
@@ -98,8 +100,8 @@ CUDA_VISIBLE_DEVICES=$GPU timeout 14400 "$PY" -u src/vlnce_src/eval_aerovla.py \
     --maxWaypoints "$STEPS" \
     --dataset_path "dataset_raw/" \
     --eval_save_path "$SAVE" \
-    --model_path "$C/checkpoints/aero_vla" \
-    --model_base "$C/openvla-7b" \
+    --model_path "$MODEL_PATH" \
+    --model_base "$MODEL_BASE" \
     --eval_json_path "$SPLIT" \
     --map_spawn_area_json_path "$C/data/meta/map_spawnarea_info.json" \
     --object_name_json_path "$C/data/meta/object_description.json" \
