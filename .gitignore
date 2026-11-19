@@ -17,6 +17,9 @@ AeroVLA/openvla-7b/
 AeroVLA/checkpoints/aero_vla
 AeroVLA/eval_results/
 
+# runtime-written by the simulator server (per-port settings dirs); never our edits
+AeroVLA/airsim_plugin/settings/
+
 # editor / OS noise
 .vscode/
 .DS_Store
