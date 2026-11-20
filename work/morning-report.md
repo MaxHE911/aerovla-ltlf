@@ -148,8 +148,11 @@ G1 的 `suppressed_stops=0`、`takeovers=0`、`stage_switches=0`（该模式本�
    （训练集是中位 43 词的物体描述，长指令 + 终点描述 ~30–40 词但语义是路线要求）。
    这既是设计意图（"信息对等但接口不匹配"），也可能是 G4 SR 偏低的部分原因——报告里必须写清。
 5. **UE4 子进程泄漏 + pfs 拥塞**（已修，但会反复咬人）：脚本已加按端口清理；
-   模型/adapter 需从 `/dev/shm` 加载（做不到时加载可能卡 8 分钟以上）。**服务器是共享机**，
-   别人占满 pfs 时所有实验都会变慢。
+   模型加载会走 pfs（**注意 `--model_base` 被 baseline 写死的 `./openvla-7b` 无视**，
+   见实现记录 §4.4 的 17:30 更正），pfs 拥塞时单次加载可卡 8 分钟以上。
+   现在 driver 用私有 mount namespace 把 RAM 副本 bind 到该路径
+   （`ops/sim-runtime/with_shm_model.sh`，磁盘零改动），日志首行会打印 `[with_shm_model]`。
+   **服务器是共享机**，别人占满 pfs 时所有实验都会变慢。
 6. **已知 cosmetic bug**（不影响结论）：初始采样点若已在地标半径内，该阶段的
    `entered/start_step` 字段不会写（`stages` 里显示 `entered=False`），但事件顺序与判定正确。
 7. **`work/` 目录只提交了文档与派生数据**；每次 eval 的原始产物在数据盘

@@ -75,6 +75,9 @@ takeover), `long_instruction` (baseline + long instruction in the description sl
 
 * the simulator must run with an X display (`Xvfb :99`) and the UE4 Vulkan adapter index is **not**
   the `nvidia-smi` index — derive it with `vulkan_adapter.py`;
+* **UE4 refuses to start as root** (`Refusing to run with the root privileges.`): the simulator server
+  must be started with `LD_PRELOAD=ops/sim-runtime/lib/libfakerootuid.so` (source + build instructions in
+  `ops/sim-runtime/`, rationale and pitfalls in `docs/ue4-root-refusal.md`); do **not** preload it into Xvfb;
 * the baseline resolves the relative dataset path, so every arm runs with `cwd=AeroVLA` and
   `--dataset_path dataset_raw/`;
 * the simulator returns the same post-step state five times per control step, so one control step

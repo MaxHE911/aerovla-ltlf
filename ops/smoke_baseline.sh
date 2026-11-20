@@ -65,6 +65,18 @@ print("  split: %d frame records total, keeping %d of trajectory %s -> %s" % (le
 PYEOF
 
 # ---- 1. Xvfb ----
+# UE4 refuses to run as root (it checks geteuid()==0 inside its Linux binary), so the simulator
+# server must be started with a shim that reports an unprivileged uid. Built from
+# ops/sim-runtime/fakerootuid.c; falls back to the prebuilt copy on the data disk.
+PRELOAD=${PRELOAD:-$REPO/ops/sim-runtime/lib/libfakerootuid.so}
+[ -f "$PRELOAD" ] || PRELOAD=$R/sim-runtime/lib/libfakerootuid.so
+[ -f "$PRELOAD" ] || { echo "fakeroot shim not found (UE4 will refuse to run as root)" >&2; exit 2; }
+log "fakeroot shim: $PRELOAD"
+# The wrapper hardcodes ./openvla-7b (ignores --model_base), so when the parallel filesystem is
+# saturated we expose the RAM copy at that path inside a private mount namespace (see
+# ops/sim-runtime/with_shm_model.sh). Nothing on disk is modified.
+SHMW=$REPO/ops/sim-runtime/with_shm_model.sh
+RAM_MODEL=${RAM_MODEL:-/dev/shm/openvla-7b}
 unset LD_PRELOAD
 rm -f /tmp/.X99-lock
 pgrep -f "Xvfb :99" >/dev/null || { nohup Xvfb :99 -screen 0 1280x720x24 -nolisten tcp > "$L/xvfb.log" 2>&1 & sleep 4; }
@@ -78,7 +90,7 @@ log "physical GPU$GPU -> Vulkan adapter $ADAPTER"
 pkill -9 -f "AirVLNSimulatorServerTool.py --port $PORT" 2>/dev/null
 sleep 2
 cd "$C/airsim_plugin" || exit 1
-LD_PRELOAD=$R/sim-runtime/lib/libfakerootuid.so nohup "$PY" -u AirVLNSimulatorServerTool.py \
+LD_PRELOAD=$PRELOAD nohup "$PY" -u AirVLNSimulatorServerTool.py \
     --port "$PORT" --gpus "$ADAPTER" --root_path "$R/envs" > "$L/server.log" 2>&1 &
 SPID=$!
 log "server pid=$SPID"
@@ -98,7 +110,7 @@ log "server listening on $PORT"
 # ---- 4. evaluation ----
 cd "$C" || exit 1
 log "starting eval ..."
-CUDA_VISIBLE_DEVICES=$GPU timeout 3600 "$PY" -u src/vlnce_src/eval_aerovla.py \
+CUDA_VISIBLE_DEVICES=$GPU "$SHMW" "$C/openvla-7b" "$RAM_MODEL" timeout 3600 "$PY" -u src/vlnce_src/eval_aerovla.py \
     --run_type eval --name AeroVLA_Smoke \
     --gpu_id "$ADAPTER" \
     --simulator_tool_port "$PORT" \

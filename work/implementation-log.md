@@ -332,7 +332,7 @@ AeroVLA 在拿到"中间地标描述"时**不会**误判为"找到目标"而 LAN
 1. **UE4 进程泄漏**（见 §3.3.2）已修；并且 kill 模式改为**按端口**：
    `airsim_plugin/settings/$PORT/`。之前用宽匹配 `airsim_plugin/settings/`，导致**并行运行的
    另一条 arm 的 UE4 被判死**（表现为 eval 卡在 "waiting for airsim connection" 8 分钟）。
-2. **pfs 拥塞导致模型加载卡死**：`/mnt/kai_ckp` 是并行文件系统（100 T，88% 已用）。
+2. **pfs 拥塞导致模型加载卡死**：`/mnt/kai_ckp` 是并行文件系统（100 T，90% 已用）。
    观察到进程处于 `cxiWaitEventWait`（CXI 网络文件系统 RPC 等待）、`read_bytes=0`、
    `rchar=316 MB` 却 8 分钟不前进——即模型权重（15 GB）每次都要走网络文件系统。
    **修复**：把模型与 adapter 拷到 RAM 盘 `/dev/shm`（100 GB tmpfs），用
@@ -340,6 +340,23 @@ AeroVLA 在拿到"中间地标描述"时**不会**误判为"找到目标"而 LAN
    效果：单 arm 启动到出第一个 episode 从 **>8 分钟（卡死）** 降到 **~2 分钟**。
    注意 `/dev/shm` 里原本有两个**指向 pfs 的同名软链接**，`cp -a` 会只拷贝软链接本身（
    0 字节），必须用 `cp -aL`。这条坑已记录在脚本注释与 README。
+
+   > **2026-11-20 17:30 更正（重要，之前的归因是错的）**：上面的"效果"其实是**混淆**。
+   > `AeroVLA/src/model_wrapper/aerovla_wrapper_ui.py:22` 把 `base_model_path` 写死成
+   > `"./openvla-7b"`，**`--model_base` 根本不生效**（`--model_path` 生效，只管 442 MB 的 adapter）。
+   > 也就是说那次"变快"是因为 pfs 拥塞恰好缓解，而不是因为模型进了 RAM。
+   > 当天 17:2x 复跑时 pfs 再次拥塞（load 391、90 T/100 T），同样卡在 D 状态，
+   > 证明前一次的因果判断错了。**正确做法**（已实现并 e2e 验证）：
+   > `ops/sim-runtime/with_shm_model.sh` 在**私有 mount namespace** 里把
+   > `/dev/shm/openvla-7b` bind-mount 到软链接的解析目标（`/mnt/kai_ckp/.../models/openvla-7b`），
+   > 从而让 `./openvla-7b` 读到 RAM 副本；**磁盘上什么都没有改**（`git status -- AeroVLA/` 干净，
+   > 也不影响同机其他用户）。三个 driver（`run_ltlf_eval.sh` / `run_baseline_eval.sh` /
+   > `smoke_baseline.sh`）都已接上，日志首行会打印
+   > `[with_shm_model] bind-mounting ... over ...`。
+   > 验证：5 步 baseline episode 从启动到落盘 **4.4 分钟**（含 ~2 分钟场景加载），
+   > 模型加载不再卡；`/dev/shm/openvla-7b` 不存在时自动退回原路径。
+   > **教训**：第一次归因到 pfs 之前应该先给"变快"做对照（换回 pfs 再跑一次），
+   > 否则会把"环境缓解"误记成"我修好了"。
 
 ---
 

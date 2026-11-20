@@ -49,6 +49,18 @@ log "SAVE=$SAVE LOGS=$L"
 log "n_episodes_in_split=$("$PY" -c "import json;print(len(json.load(open('$SPLIT'))))")"
 log "gpu_mem_before=$(nvidia-smi --query-gpu=index,memory.used --format=csv,noheader | tr '\n' ' ')"
 
+# UE4 refuses to run as root (it checks geteuid()==0 inside its Linux binary), so the simulator
+# server must be started with a shim that reports an unprivileged uid. Built from
+# ops/sim-runtime/fakerootuid.c; falls back to the prebuilt copy on the data disk.
+PRELOAD=${PRELOAD:-$REPO/ops/sim-runtime/lib/libfakerootuid.so}
+[ -f "$PRELOAD" ] || PRELOAD=$R/sim-runtime/lib/libfakerootuid.so
+[ -f "$PRELOAD" ] || { echo "fakeroot shim not found (UE4 will refuse to run as root)" >&2; exit 2; }
+log "fakeroot shim: $PRELOAD"
+# The wrapper hardcodes ./openvla-7b (ignores --model_base), so when the parallel filesystem is
+# saturated we expose the RAM copy at that path inside a private mount namespace (see
+# ops/sim-runtime/with_shm_model.sh). Nothing on disk is modified.
+SHMW=$REPO/ops/sim-runtime/with_shm_model.sh
+RAM_MODEL=${RAM_MODEL:-/dev/shm/openvla-7b}
 unset LD_PRELOAD
 if ! DISPLAY=:99 xdpyinfo >/dev/null 2>&1; then
   rm -f /tmp/.X99-lock
@@ -71,7 +83,7 @@ else
   pkill -9 -f "AirVLNSimulatorServerTool.py --port $PORT" 2>/dev/null
   sleep 2
   cd "$C/airsim_plugin" || exit 1
-  LD_PRELOAD=$R/sim-runtime/lib/libfakerootuid.so nohup "$PY" -u AirVLNSimulatorServerTool.py \
+  LD_PRELOAD=$PRELOAD nohup "$PY" -u AirVLNSimulatorServerTool.py \
       --port "$PORT" --gpus "$ADAPTER" --root_path "$R/envs" > "$L/server.log" 2>&1 &
   SPID=$!
   log "server pid=$SPID"
@@ -91,7 +103,7 @@ fi
 
 cd "$C" || exit 1
 log "starting baseline eval ..."
-CUDA_VISIBLE_DEVICES=$GPU timeout 14400 "$PY" -u src/vlnce_src/eval_aerovla.py \
+CUDA_VISIBLE_DEVICES=$GPU "$SHMW" "$C/openvla-7b" "$RAM_MODEL" timeout 14400 "$PY" -u src/vlnce_src/eval_aerovla.py \
     --run_type eval --name AeroVLA_Baseline \
     --gpu_id "$ADAPTER" \
     --simulator_tool_port "$PORT" \
