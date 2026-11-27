@@ -395,7 +395,8 @@ SPL = 成功路径长度比；ESR = **离线独立判据**下的完整规范满�
 | RefineFly | `rf-a` / `rf-b` | RefineFly 权重 / AeroVLA 权重，均 `original` | 12 / 12 | **12 / 12** | ✅ |
 | 零样本图 | `mp40-a/b` | ModularPark | 14 | 1 / 2 | ❌ 该图单条 episode ~10 min（目标 140 m 外）；两臂 STEPS 配置不一致（40 vs 80），不可比 |
 | 其余地图 | `nyc-a/b` | NewYorkCity，`fixed_order` / `long_instruction` | 8 / 8 | **8 / 7** | ⚠️ 跑通但**不可用**：两臂 **SR 0、碰撞 100%**（NE 167 m / 114 m，平均步数 2.0 / 18.4）——见 §3.3 |
-| 其余地图 | `ti-a/b`、`nycem-a/b` | idea1 对照 | 8/6 | 0 | ❌ 未跑（GPU 被他人占满、时间不足） |
+| 其余地图 | `ti-a/b` | TropicalIsland（ST 组，8 条/臂） | 8 / 8 | 1 / 1 | ❌ 中止：实测单条 episode ≈13 min（80 步上限 + 长距离任务），8 条要 100+ min，超出本日时间窗 |
+| 其余地图 | `nycem-a/b` | NYCEnvironmentMegapa | 6 | 0 | ❌ 未跑：该图数据 86 GB、场景加载慢，且 GPU0 全天被他人占满 |
 | idea3 NL 保持 | `sa_single-a/b` | Stage-A 权重 + `single_stage` | 8 | 0 | ❌ 同上 |
 
 ## 10. 复现命令（服务器仓库根目录）
