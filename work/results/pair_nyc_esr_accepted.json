@@ -1,0 +1,17 @@
+{
+ "metric": "esr_accepted",
+ "n_paired": 7,
+ "both": 0,
+ "only_a": 0,
+ "only_b": 1,
+ "neither": 6,
+ "rate_a": 0.0,
+ "rate_b": 0.1429,
+ "mcnemar_exact_p": 1.0,
+ "only_a_seqs": [],
+ "only_b_seqs": [
+  "317d2a52-1752-464c-b5b8-3e4ae5dade13"
+ ],
+ "arm_a": "nyc-a",
+ "arm_b": "nyc-b"
+}

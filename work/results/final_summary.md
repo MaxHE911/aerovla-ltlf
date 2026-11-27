@@ -1,5 +1,5 @@
 
-# 自动生成的结果汇总（2026-11-27 14:36:18）
+# 自动生成的结果汇总（2026-11-27 14:54:28）
 
 
 ## A. 全部臂（ops/collect_arms.py；指标口径见 ops/analyze_results.py）
@@ -16,6 +16,8 @@
 | sa4_from_ckpt | sa_retrain | fixed_order | 8 | 0.625 | 0.625 | 16.425 | 0.450 | 0.625 | 0.625 | 0.844 | [0.31, 0.86] |
 | rf_refinefly | refinefly | original | 12 | 0.250 | 0.250 | 49.180 | 0.199 | 0.250 | 0.250 | 0.250 | [0.09, 0.53] |
 | rf_aerovla | refinefly | original | 12 | 0.167 | 0.167 | 55.089 | 0.135 | 0.167 | 0.167 | 0.167 | [0.05, 0.45] |
+| nyc_ours | nyc | fixed_order | 8 | 0.000 | 0.000 | 166.905 | 0.000 | 0.000 | 0.000 | 0.229 | [0.00, 0.32] |
+| nyc_base_long | nyc | long_instruction | 7 | 0.000 | 0.143 | 112.968 | 0.000 | 0.143 | 0.000 | 0.143 | [0.00, 0.35] |
 
 ## B. 按任务配对的精确 McNemar 检验（ops/paired_compare.py）
 
@@ -27,6 +29,8 @@
 | rf | esr_accepted | 12 | 1 | 2 | 1 | 8 | 1.000 |
 | mp40 | success | 1 | 0 | 0 | 0 | 1 | 1.000 |
 | mp40 | esr_accepted | 1 | 0 | 0 | 0 | 1 | 1.000 |
+| nyc | success | 7 | 0 | 0 | 0 | 7 | 1.000 |
+| nyc | esr_accepted | 7 | 0 | 0 | 1 | 6 | 1.000 |
 
 ## C. STL 离线鲁棒度（ltlf_logic.stl_tasks，ModernCityMap）
 
