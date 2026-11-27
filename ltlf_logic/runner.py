@@ -32,7 +32,7 @@ __all__ = [
 # --------------------------------------------------------------------------------------
 # configuration
 # --------------------------------------------------------------------------------------
-MODES = ("original", "single_stage", "long_instruction", "fixed_order")
+MODES = ("original", "single_stage", "long_instruction", "fixed_order", "stl")
 
 
 @dataclass
@@ -50,6 +50,17 @@ class LTLfConfig:
     max_stages: int = 4
     log_every_step: bool = True
     seed_note: str = ""
+    # ---- idea 2: STL layer (only used when mode == "stl") ----
+    stl_enabled: bool = False
+    stl_shield: bool = True
+    stl_deadline: bool = True
+    # safety envelope calibrated on the ModernCityMap expert flights (p01/p99 of altitude above
+    # ground, see work/idea2-stl.md §3.2).  Per-map calibration is a TODO; the STL arm currently
+    # runs on ModernCityMap only.
+    stl_alt_min_m: float = 1.722
+    stl_alt_max_m: float = 33.638
+    stl_fwd_max_m: float = 8.0
+    stl_step_len_m: float = 4.3
 
     @classmethod
     def for_mode(cls, mode: str, **overrides) -> "LTLfConfig":
@@ -66,6 +77,13 @@ class LTLfConfig:
             base.gate_enabled = True
             base.takeover_enabled = True
             base.disable_distance_increasing = True
+        elif mode == "stl":
+            # idea 2: the same stage machine as fixed_order, plus STL monitoring, deadline
+            # pressure prompting and the safety-envelope action shield
+            base.gate_enabled = True
+            base.takeover_enabled = True
+            base.disable_distance_increasing = True
+            base.stl_enabled = True
         else:
             raise ValueError("unknown mode %r (expected one of %s)" % (mode, MODES))
         for k, v in overrides.items():

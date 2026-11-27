@@ -141,6 +141,8 @@ EXTRA=()
 [ -n "$TAKEOVER" ] && EXTRA+=(--ltlf-takeover "$TAKEOVER")
 [ -n "$DISABLE_DIH" ] && EXTRA+=(--ltlf-disable-distance-heuristic "$DISABLE_DIH")
 [ -n "$TASK_JSON" ] && EXTRA+=(--ltlf-task-json "$TASK_JSON")
+# generic passthrough for ablations: LTLF_EXTRA_ARGS="--ltlf-config-stl_alt_min_m 6.0"
+if [ -n "${LTLF_EXTRA_ARGS:-}" ]; then read -r -a _extra <<< "$LTLF_EXTRA_ARGS"; EXTRA+=("${_extra[@]}"); fi
 
 log "starting eval (mode=$MODE) ..."
 CUDA_VISIBLE_DEVICES=$GPU "$SHMW" "$C/openvla-7b" "$RAM_MODEL" timeout 14400 "$PY" -u "$REPO/ops/run_eval_ltlf.py" \

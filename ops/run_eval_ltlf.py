@@ -96,6 +96,28 @@ def main() -> int:
         overrides["event_radius_m"] = float(ltlf_args["event_radius"])
     if "takeover_fwd" in ltlf_args:
         overrides["takeover_fwd_m"] = float(ltlf_args["takeover_fwd"])
+    # generic passthrough: --ltlf-config-<field>=<value> sets any LTLfConfig field, with the type
+    # taken from the dataclass.  Needed for ablations that must not add a new flag each time
+    # (e.g. --ltlf-config-stl_alt_min_m=6.0).
+    from dataclasses import fields as _dc_fields
+
+    _field_types = {f.name: f.type for f in _dc_fields(LTLfConfig)}
+    for _k, _v in list(ltlf_args.items()):
+        if not _k.startswith("config_"):
+            continue
+        _name = _k[len("config_"):]
+        if _name not in _field_types:
+            raise SystemExit("unknown LTLfConfig field: %s (known: %s)" % (_name, sorted(_field_types)))
+        _t = _field_types[_name]
+        _t = _t if isinstance(_t, str) else getattr(_t, "__name__", str(_t))
+        if _t == "bool":
+            overrides[_name] = _as_bool(_v)
+        elif _t == "int":
+            overrides[_name] = int(_v)
+        elif _t == "float":
+            overrides[_name] = float(_v)
+        else:
+            overrides[_name] = _v
     config = LTLfConfig.for_mode(mode, **overrides)
 
     log_dir = ltlf_args.get("log_dir") or os.path.join(os.path.dirname(os.path.abspath(args.eval_save_path)), "ltlf_logs")

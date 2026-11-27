@@ -1,0 +1,590 @@
+{
+ "label": "G4-base-rt",
+ "logs_dir": "/mnt/kai_ckp/yiding/MaxHE/ltlf_logs/s5-g4-longinstr-rt8",
+ "tasks_path": "work/tasks/tasks_ModernCityMap_seen_valset.json",
+ "step_len_m": 4.2435,
+ "envelope": {
+  "alt_min_m": 1.722,
+  "alt_max_m": 33.638,
+  "alt_median_m": 9.841,
+  "alt_p01_m": 1.722,
+  "alt_p99_m": 33.638,
+  "envelope_source": "expert_flight",
+  "envelope_n_samples": 13615,
+  "expert_m_per_frame": 0.944
+ },
+ "n": 8,
+ "aggregate": {
+  "n": 8,
+  "rho_chain_mean": -31.2988,
+  "rho_schedule_mean": -34.7756,
+  "rho_safety_mean": 0.6473,
+  "rho_chain_median": -36.2495,
+  "rho_schedule_median": -40.5248,
+  "rho_safety_median": 1.0585,
+  "rho_safety_worst": -4.9719,
+  "chain_sat_rate": 0.0,
+  "schedule_sat_rate": 0.0,
+  "safety_sat_rate": 0.875,
+  "sr": 0.25,
+  "osr": 0.25,
+  "collision_rate": 0.75,
+  "stage_in_window_rate": 0.4828,
+  "stage_late_rate": 0.0345,
+  "stage_never_entered_rate": 0.4828,
+  "n_stages_total": 29,
+  "mean_steps": 30.375,
+  "chain_vs_ltlf_n": 8,
+  "chain_vs_ltlf_agreement": 1.0
+ },
+ "rows": [
+  {
+   "seq": "6452f234-efba-4088-bc9a-39130a811007",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 5,
+   "rho_chain_raw": -36.73347945638818,
+   "rho_schedule_raw": -Infinity,
+   "rho_safety_raw": -4.9719,
+   "rho_total_raw": -Infinity,
+   "rho_chain": -36.73347945638818,
+   "rho_schedule": -50.0,
+   "rho_safety": -4.9719,
+   "rho_total": -50.0,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": false,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 8.6231,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 8.6231
+    },
+    "L1": {
+     "best_margin_m": -24.566,
+     "best_step": 3,
+     "window": [
+      4,
+      12
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -24.601
+    },
+    "g": {
+     "best_margin_m": -36.7335,
+     "best_step": 4,
+     "window": [
+      10,
+      28
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -Infinity
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 5
+  },
+  {
+   "seq": "6badc126-d716-494e-ac36-f5656656f071",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 46,
+   "rho_chain_raw": -30.13880439588923,
+   "rho_schedule_raw": -35.58294506981621,
+   "rho_safety_raw": 2.8615,
+   "rho_total_raw": -35.58294506981621,
+   "rho_chain": -30.13880439588923,
+   "rho_schedule": -35.58294506981621,
+   "rho_safety": 2.8615,
+   "rho_total": -35.58294506981621,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 1.768,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 1.768
+    },
+    "L1": {
+     "best_margin_m": -7.2412,
+     "best_step": 1,
+     "window": [
+      0,
+      6
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -7.2412
+    },
+    "L2": {
+     "best_margin_m": -30.1388,
+     "best_step": 25,
+     "window": [
+      7,
+      19
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -35.5829
+    },
+    "g": {
+     "best_margin_m": 5.8507,
+     "best_step": 45,
+     "window": [
+      20,
+      54
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 5.8507
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 46
+  },
+  {
+   "seq": "8daaf47b-a164-49f8-b6f8-3e63fae02f72",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 26,
+   "rho_chain_raw": -3.0245042134237536,
+   "rho_schedule_raw": -3.0245042134237536,
+   "rho_safety_raw": 1.5188000000000001,
+   "rho_total_raw": -3.0245042134237536,
+   "rho_chain": -3.0245042134237536,
+   "rho_schedule": -3.0245042134237536,
+   "rho_safety": 1.5188000000000001,
+   "rho_total": -3.0245042134237536,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 10.0866,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 10.0866
+    },
+    "L1": {
+     "best_margin_m": 7.301,
+     "best_step": 8,
+     "window": [
+      4,
+      10
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.301
+    },
+    "L2": {
+     "best_margin_m": -3.0245,
+     "best_step": 16,
+     "window": [
+      8,
+      22
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -3.0245
+    },
+    "g": {
+     "best_margin_m": 8.087,
+     "best_step": 25,
+     "window": [
+      13,
+      33
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 8.087
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 26
+  },
+  {
+   "seq": "9812065a-12b8-4a42-b6e1-47c83f8fffe6",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 24,
+   "rho_chain_raw": -8.54750113787912,
+   "rho_schedule_raw": -8.54750113787912,
+   "rho_safety_raw": 2.1514,
+   "rho_total_raw": -8.54750113787912,
+   "rho_chain": -8.54750113787912,
+   "rho_schedule": -8.54750113787912,
+   "rho_safety": 2.1514,
+   "rho_total": -8.54750113787912,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 7.9452,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.9452
+    },
+    "L1": {
+     "best_margin_m": 7.9887,
+     "best_step": 8,
+     "window": [
+      4,
+      12
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.9887
+    },
+    "L2": {
+     "best_margin_m": 7.372,
+     "best_step": 14,
+     "window": [
+      8,
+      20
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.372
+    },
+    "g": {
+     "best_margin_m": -8.5475,
+     "best_step": 23,
+     "window": [
+      16,
+      42
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -8.5475
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 24
+  },
+  {
+   "seq": "982c8942-8ff0-41c8-8c37-b2741bab1cd8",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 20,
+   "rho_chain_raw": -57.92800750780104,
+   "rho_schedule_raw": -57.92800750780104,
+   "rho_safety_raw": 2.2035,
+   "rho_total_raw": -57.92800750780104,
+   "rho_chain": -50.0,
+   "rho_schedule": -50.0,
+   "rho_safety": 2.2035,
+   "rho_total": -50.0,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 7.9194,
+     "best_step": 1,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.9194
+    },
+    "L1": {
+     "best_margin_m": 3.1418,
+     "best_step": 8,
+     "window": [
+      2,
+      8
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 3.1418
+    },
+    "L2": {
+     "best_margin_m": -35.2185,
+     "best_step": 7,
+     "window": [
+      8,
+      22
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -35.5277
+    },
+    "g": {
+     "best_margin_m": -57.928,
+     "best_step": 19,
+     "window": [
+      16,
+      44
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -57.928
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 20
+  },
+  {
+   "seq": "c8e7469a-503d-4ec3-815e-203f4b8a4370",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 32,
+   "rho_chain_raw": -35.765450207306166,
+   "rho_schedule_raw": -35.765450207306166,
+   "rho_safety_raw": 0.4630000000000001,
+   "rho_total_raw": -35.765450207306166,
+   "rho_chain": -35.765450207306166,
+   "rho_schedule": -35.765450207306166,
+   "rho_safety": 0.4630000000000001,
+   "rho_total": -35.765450207306166,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 9.4382,
+     "best_step": 1,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 9.4382
+    },
+    "L1": {
+     "best_margin_m": 2.8872,
+     "best_step": 10,
+     "window": [
+      2,
+      8
+     ],
+     "in_window": false,
+     "late": true,
+     "never_entered": false,
+     "rho": 1.7963
+    },
+    "g": {
+     "best_margin_m": -35.7655,
+     "best_step": 31,
+     "window": [
+      24,
+      64
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -35.7655
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 32
+  },
+  {
+   "seq": "dc55f10b-ab4e-4a21-81cb-72a22167c6ba",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 25,
+   "rho_chain_raw": -46.91109891823809,
+   "rho_schedule_raw": -60.2954311265632,
+   "rho_safety_raw": 0.5981000000000001,
+   "rho_total_raw": -60.2954311265632,
+   "rho_chain": -46.91109891823809,
+   "rho_schedule": -50.0,
+   "rho_safety": 0.5981000000000001,
+   "rho_total": -50.0,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 3.0675,
+     "best_step": 2,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 3.0675
+    },
+    "L1": {
+     "best_margin_m": -37.8733,
+     "best_step": 11,
+     "window": [
+      8,
+      20
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -37.8733
+    },
+    "g": {
+     "best_margin_m": -46.9111,
+     "best_step": 2,
+     "window": [
+      13,
+      33
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -60.2954
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 25
+  },
+  {
+   "seq": "f14e7115-e964-47b9-89cf-b6069541ba8c",
+   "label": "G4-base-rt",
+   "ltlf_accepted": false,
+   "n_steps": 65,
+   "rho_chain_raw": -39.26981405550573,
+   "rho_schedule_raw": -45.28408790063815,
+   "rho_safety_raw": 0.3538000000000001,
+   "rho_total_raw": -45.28408790063815,
+   "rho_chain": -39.26981405550573,
+   "rho_schedule": -45.28408790063815,
+   "rho_safety": 0.3538000000000001,
+   "rho_total": -45.28408790063815,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 10.1317,
+     "best_step": 1,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 10.1317
+    },
+    "L1": {
+     "best_margin_m": -3.5499,
+     "best_step": 64,
+     "window": [
+      2,
+      8
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -13.3264
+    },
+    "L2": {
+     "best_margin_m": -30.804,
+     "best_step": 64,
+     "window": [
+      7,
+      19
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -45.2841
+    },
+    "g": {
+     "best_margin_m": -34.1219,
+     "best_step": 55,
+     "window": [
+      14,
+      36
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -38.5468
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 65
+  }
+ ]
+}

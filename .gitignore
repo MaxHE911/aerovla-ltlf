@@ -24,3 +24,7 @@ AeroVLA/airsim_plugin/settings/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# idea-3 artefacts: checkpoints (hundreds of MB) and generated datasets are reproducible from the
+# committed script ops/make_posttrain_data.py + the recipe in work/idea3-posttrain.md
+work/posttrain/

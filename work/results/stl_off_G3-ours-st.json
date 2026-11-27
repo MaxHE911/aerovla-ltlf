@@ -1,0 +1,482 @@
+{
+ "label": "G3-ours-st",
+ "logs_dir": "/mnt/kai_ckp/yiding/MaxHE/ltlf_logs/s5-g3-ours-st8",
+ "tasks_path": "work/tasks/tasks_ModernCityMap_seen_valset.json",
+ "step_len_m": 4.3608,
+ "envelope": {
+  "alt_min_m": 1.722,
+  "alt_max_m": 33.638,
+  "alt_median_m": 9.841,
+  "alt_p01_m": 1.722,
+  "alt_p99_m": 33.638,
+  "envelope_source": "expert_flight",
+  "envelope_n_samples": 13615,
+  "expert_m_per_frame": 0.944
+ },
+ "n": 8,
+ "aggregate": {
+  "n": 8,
+  "rho_chain_mean": -14.6307,
+  "rho_schedule_mean": -14.6307,
+  "rho_safety_mean": -1.2859,
+  "rho_chain_median": 4.0843,
+  "rho_schedule_median": 4.0843,
+  "rho_safety_median": 0.5749,
+  "rho_safety_worst": -21.4593,
+  "chain_sat_rate": 0.625,
+  "schedule_sat_rate": 0.625,
+  "safety_sat_rate": 0.75,
+  "sr": 0.625,
+  "osr": 0.625,
+  "collision_rate": 0.375,
+  "stage_in_window_rate": 0.7,
+  "stage_late_rate": 0.1,
+  "stage_never_entered_rate": 0.2,
+  "n_stages_total": 20,
+  "mean_steps": 29.125,
+  "chain_vs_ltlf_n": 8,
+  "chain_vs_ltlf_agreement": 1.0
+ },
+ "rows": [
+  {
+   "seq": "52eb0469-3bf8-4a19-bbb7-5c6f3a1f6cd0",
+   "label": "G3-ours-st",
+   "ltlf_accepted": false,
+   "n_steps": 17,
+   "rho_chain_raw": -49.65134224312119,
+   "rho_schedule_raw": -49.65134224312119,
+   "rho_safety_raw": -21.459300000000002,
+   "rho_total_raw": -49.65134224312119,
+   "rho_chain": -49.65134224312119,
+   "rho_schedule": -49.65134224312119,
+   "rho_safety": -21.459300000000002,
+   "rho_total": -49.65134224312119,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": false,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 7.2766,
+     "best_step": 13,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": false,
+     "late": true,
+     "never_entered": false,
+     "rho": -3.6135
+    },
+    "g": {
+     "best_margin_m": -49.6513,
+     "best_step": 16,
+     "window": [
+      11,
+      29
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -49.6513
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 17
+  },
+  {
+   "seq": "6d1df58d-3b81-48d5-9cce-f80f4ab48c20",
+   "label": "G3-ours-st",
+   "ltlf_accepted": false,
+   "n_steps": 24,
+   "rho_chain_raw": -55.559029870834394,
+   "rho_schedule_raw": -55.559029870834394,
+   "rho_safety_raw": 0.3959999999999999,
+   "rho_total_raw": -55.559029870834394,
+   "rho_chain": -50.0,
+   "rho_schedule": -50.0,
+   "rho_safety": 0.3959999999999999,
+   "rho_total": -50.0,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 7.4644,
+     "best_step": 1,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.4644
+    },
+    "g": {
+     "best_margin_m": -55.559,
+     "best_step": 23,
+     "window": [
+      20,
+      54
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -55.559
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 24
+  },
+  {
+   "seq": "80c8691c-1bb3-46ca-a51f-1faca2851456",
+   "label": "G3-ours-st",
+   "ltlf_accepted": true,
+   "n_steps": 30,
+   "rho_chain_raw": 9.053371533029273,
+   "rho_schedule_raw": 9.053371533029273,
+   "rho_safety_raw": -0.030299999999999994,
+   "rho_total_raw": -0.030299999999999994,
+   "rho_chain": 9.053371533029273,
+   "rho_schedule": 9.053371533029273,
+   "rho_safety": -0.030299999999999994,
+   "rho_total": -0.030299999999999994,
+   "chain_sat": true,
+   "schedule_sat": true,
+   "safety_sat": false,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 10.6547,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 10.6547
+    },
+    "g": {
+     "best_margin_m": 9.0534,
+     "best_step": 29,
+     "window": [
+      18,
+      48
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 9.0534
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 30
+  },
+  {
+   "seq": "84eabab1-99ff-4cb8-bde9-ad9459196148",
+   "label": "G3-ours-st",
+   "ltlf_accepted": false,
+   "n_steps": 19,
+   "rho_chain_raw": -70.77106728455985,
+   "rho_schedule_raw": -70.77106728455985,
+   "rho_safety_raw": 5.069599999999999,
+   "rho_total_raw": -70.77106728455985,
+   "rho_chain": -50.0,
+   "rho_schedule": -50.0,
+   "rho_safety": 5.069599999999999,
+   "rho_total": -50.0,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 5.4108,
+     "best_step": 1,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 5.4108
+    },
+    "L1": {
+     "best_margin_m": 0.123,
+     "best_step": 11,
+     "window": [
+      1,
+      7
+     ],
+     "in_window": false,
+     "late": true,
+     "never_entered": false,
+     "rho": -4.3832
+    },
+    "L2": {
+     "best_margin_m": -10.0934,
+     "best_step": 18,
+     "window": [
+      6,
+      16
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -17.9702
+    },
+    "g": {
+     "best_margin_m": -70.7711,
+     "best_step": 18,
+     "window": [
+      15,
+      41
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -70.7711
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": false,
+   "oracle_success": false,
+   "collision": true,
+   "steps": 19
+  },
+  {
+   "seq": "8a24d51d-4661-4ba4-a50c-be5879418df0",
+   "label": "G3-ours-st",
+   "ltlf_accepted": true,
+   "n_steps": 36,
+   "rho_chain_raw": 8.335765614027489,
+   "rho_schedule_raw": 8.335765614027489,
+   "rho_safety_raw": 0.2268000000000001,
+   "rho_total_raw": 0.2268000000000001,
+   "rho_chain": 8.335765614027489,
+   "rho_schedule": 8.335765614027489,
+   "rho_safety": 0.2268000000000001,
+   "rho_total": 0.2268000000000001,
+   "chain_sat": true,
+   "schedule_sat": true,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 9.002,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 9.002
+    },
+    "g": {
+     "best_margin_m": 8.3358,
+     "best_step": 35,
+     "window": [
+      20,
+      52
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 8.3358
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 36
+  },
+  {
+   "seq": "9d7f7149-7a1e-4e12-9250-9b673c33ded7",
+   "label": "G3-ours-st",
+   "ltlf_accepted": true,
+   "n_steps": 46,
+   "rho_chain_raw": 1.8123990758665691,
+   "rho_schedule_raw": 1.8123990758665691,
+   "rho_safety_raw": 0.7538,
+   "rho_total_raw": 0.7538,
+   "rho_chain": 1.8123990758665691,
+   "rho_schedule": 1.8123990758665691,
+   "rho_safety": 0.7538,
+   "rho_total": 0.7538,
+   "chain_sat": true,
+   "schedule_sat": true,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 1.8124,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 1.8124
+    },
+    "L1": {
+     "best_margin_m": 5.3674,
+     "best_step": 4,
+     "window": [
+      0,
+      6
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 5.3674
+    },
+    "L2": {
+     "best_margin_m": 5.764,
+     "best_step": 11,
+     "window": [
+      5,
+      13
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 5.764
+    },
+    "g": {
+     "best_margin_m": 9.6671,
+     "best_step": 45,
+     "window": [
+      17,
+      45
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 9.6671
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 46
+  },
+  {
+   "seq": "cad7a3ae-d2e2-4e4b-8ddb-50749f0eb240",
+   "label": "G3-ours-st",
+   "ltlf_accepted": true,
+   "n_steps": 35,
+   "rho_chain_raw": 7.048163949586978,
+   "rho_schedule_raw": 7.048163949586978,
+   "rho_safety_raw": 2.4525,
+   "rho_total_raw": 2.4525,
+   "rho_chain": 7.048163949586978,
+   "rho_schedule": 7.048163949586978,
+   "rho_safety": 2.4525,
+   "rho_total": 2.4525,
+   "chain_sat": true,
+   "schedule_sat": true,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 7.0482,
+     "best_step": 1,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 7.0482
+    },
+    "g": {
+     "best_margin_m": 9.0322,
+     "best_step": 34,
+     "window": [
+      14,
+      38
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 9.0322
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 35
+  },
+  {
+   "seq": "f77d0864-4077-40c1-a425-ae4f1e1d51a9",
+   "label": "G3-ours-st",
+   "ltlf_accepted": true,
+   "n_steps": 26,
+   "rho_chain_raw": 6.3562783692852145,
+   "rho_schedule_raw": 6.3562783692852145,
+   "rho_safety_raw": 2.3034000000000003,
+   "rho_total_raw": 2.3034000000000003,
+   "rho_chain": 6.3562783692852145,
+   "rho_schedule": 6.3562783692852145,
+   "rho_safety": 2.3034000000000003,
+   "rho_total": 2.3034000000000003,
+   "chain_sat": true,
+   "schedule_sat": true,
+   "safety_sat": true,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": 6.3563,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 6.3563
+    },
+    "g": {
+     "best_margin_m": 8.0472,
+     "best_step": 25,
+     "window": [
+      15,
+      41
+     ],
+     "in_window": true,
+     "late": false,
+     "never_entered": false,
+     "rho": 8.0472
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null,
+   "success": true,
+   "oracle_success": true,
+   "collision": false,
+   "steps": 26
+  }
+ ]
+}

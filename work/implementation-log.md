@@ -446,3 +446,132 @@ git diff --stat baseline-v0 -- AeroVLA/   # 期望：无输出
 ```
 （注意：以后每次跑完仿真仍会重新生成这些文件，提交前需 git checkout -- AeroVLA/ 或
 git clean -fd AeroVLA/airsim_plugin/settings/；这一点已写进 README 的注意事项。）
+
+---
+
+# v2 会话记录（2026-11-27，多地图 + idea2 STL + idea3 后训练）
+
+> 本段追加于 `work/implementation-log.md` 末尾。所有命令均为服务器上实际执行过的；
+> 未验证的内容显式标注「未验证」。
+
+## V2.0 会话开始时的真实状态核对（07:00）
+
+- 服务器 `root@10.40.0.190:7735` 可连；load ≈56（多人共享），GPU0 已用 21.5/80 GB（他人），GPU1 已用 64.7/80 GB（他人，仅剩 ~17 GB → 全程未使用 GPU1）。
+- 仓库 `dev@f1f46c7`，`AeroVLA/` 与 `baseline-v0` 逐字节一致。
+- 上一轮结论"只有 ModernCityMap 有数据"**被本轮推翻**：见 V2.1。
+
+## V2.1 地图与数据盘点（本轮新增事实）
+
+- 仿真场景（`envs/closeloop_envs/`）：ModernCityDowntown(=ModernCityMap)、ModularEuropean、ModularPark、NYCEnvironmentMegapa、NewYorkCity、TropicalIsland 共 6 个。
+- `dataset_raw/` 目录：ModernCityMap 718、NewYorkCity 1139、NYCEnvironmentMegapa 2015、TropicalIsland 1418、ModularPark 958、Carla_Town01 954（**缺 merged_data.json，跳过**）；Carla_Town04/05/06/07/10HD/15 只有分卷压缩包，未解压。
+- `data/meta/map_spawnarea_info.json` 覆盖以上全部 UE4 地图（Carla 系列也在）。
+- 仿真器按 `item['map_name']` 自动开场景（`env_uav.py:257` → `AirVLNSimulatorServerTool.py:242`），**加地图不需要改代码**，只要 split + tasks。
+- **可跑地图数 = 5**，其中 ModularPark 是官方 *unseen map* 划分，且训练集里 **0 条样本**（见 V2.6）→ 真正的零样本地图。
+- 每张图数据抽查 6 条轨迹的 `merged_data.json`：键一致（`trajectory/trajectory_raw/trajectory_raw_detailed/image_feature_path/index/length/conversations`），无缺失。
+
+## V2.2 训练数据与动作空间的实测事实（决定了 idea2/idea3 的设计）
+
+- `AeroVLA/data/aerovla_train_dataset.json` = **410,450 条**训练样本；按图分布：
+  Carla_Town01 38,742 / Town04 24,873 / Town05 19,936 / Town06 16,802 / Town07 15,594 / Town10HD 27,611 / Town15 36,612 /
+  ModernCityMap **13,715** / NYCEnvironmentMegapa 109,856 / NewYorkCity 47,856 / TropicalIsland 58,853 /
+  **ModularPark 0**。
+- 动作空间不是纯回归：`aerovla_dataset.py:75-79` 把连续 `label{fwd,down,yaw}` **量化成 3 个 bin**（`f"{bin_fwd:02d} {bin_down:02d} {bin_yaw:02d}"`），推理端 `aerovla_wrapper_ui.py:212-223` 再反量化。
+  → 模型输出是**离散 token**；因此"动作投影式屏蔽"只能做**事后投影**（改解码后的连续量），不能做梯度。
+- 动作执行语义（`AirVLNSimulatorClientTool_AeroVLA.py:299-395`）：`dx=fwd·cos(yaw_cur+Δyaw)`、`dz=down`，
+  cruise 1.0 m/s，`duration=fwd`，随后 `moveByVelocity(0,0,0,0.5)`；`|Δyaw|≥0.25 rad` 先原地转。
+  每个宏动作只产生**一个**新位姿（`for _ in range(5)` 复制同一帧）→ STL 用**宏步**做时间单位（不是秒）。
+- 训练入口：`AeroVLA/src/train_aerovla.py`（LoRA r=64、α=128、dropout 0.05、lr 2e-4、micro-bs 2、accum 8、5 epoch），`scripts/train.sh`。
+  **本轮未修改该文件**；若要跑后训练会另写 `ops/` 下的入口。
+
+## V2.3 评测基础设施（本轮新增）
+
+- `ops/launch_arm.sh`：单臂分离式启动（`setsid nohup`），支持任意 `K=V` 覆盖（`GPU=`、`MODEL_PATH=` 等）。
+- `ops/run_next.sh`：**依赖式排队器**——等指定进程模式消失后再启动本臂。
+  坑：`pgrep -f` 匹配 `/proc/<pid>/cmdline`，所以等待模式**必须通过环境变量传入**，否则排队器会匹配到自己而死锁。
+  另一个坑：`pkill -f "run_wave_sequence.sh"` 会**杀掉执行该命令的 ssh 会话自己**（自己的 cmdline 含该字符串）→
+  改用 `pat="run_wave_seq""uence.sh"` 拆分字面量后再 `pgrep/kill`。
+- `ops/queue_chain.sh`：把 6 个波次按依赖串起来（wave1 → mp → stl → rf → nyc → ti → nycem），全程无人值守。
+- 坑（已修）：把 `cd X && R=Y && ... && cmd &` 整体放到后台时，`&` 会把**整条链**变成子 shell，后续命令拿不到 `R`/cwd → 报 `bash: ops/run_ltlf_eval.sh: No such file`。
+
+## V2.4 idea2（STL）实现与验证
+
+- 新增 `ltlf_logic/stl.py`（AST + min/max 鲁棒度 + 在线上下界 `bounds()`）、
+  `ltlf_logic/stl_tasks.py`（`chain`/`schedule`/安全包络 + 离线打分 + CLI）、
+  `ltlf_logic/stl_layer.py`（在线监控 + 截止期提示 + 动作投影 shield）、
+  `ltlf_tests/test_stl.py`（18 个测试）。
+- 集成：`eval_loop.py` +63 行（`mode=stl` 时实例化/每步 observe/gate 前 shield/阶段切换后提示/落盘）、
+  `runner.py` 加 `MODES += ("stl",)` 与 7 个 `stl_*` 字段（`stl_step_len_m=4.3`）。
+- 测试：`python -m pytest ltlf_tests/ -q` → **80 passed**（62 旧 + 18 新）。
+- 交叉验证：5 组真实 rollout（39 条 episode）上 `STL chain 的 ρ>0` 与 `offline.independent_esr()` **一致 39/39**。
+- 过程中发现并修复的问题（详见 `work/idea2-stl.md` §9）：步数被位姿去重吞掉、`bounds()` 语义与实现不符、
+  交叉验证用错字段（`accepted` 依模式而异）、安全包络误用地标中心 z、ρ 均值出现 −inf、6 个新测试首轮失败（3 个是测试自己写错）。
+- 工具坑：服务器 aerovla 环境原本**没有 pytest**，`pip install --index-url tuna pytest` 后可用；
+  本地 Windows 装不上 pytest（PEP 668 + uv 环境），**本地只做 `py_compile` 语法检查，测试一律在服务器跑**。
+
+## V2.5 离线 STL 数值（0 GPU，对已跑完的 rollout 重打分）
+
+见 `work/results/stl_off_*.json` 与 `work/idea2-stl.md` §7。关键三条：
+
+1. RT 组"阶段从未到达"率：baseline+长指令 **48.3%** → 本层 **13.8%**；
+2. 但本层"到达者中迟到"率 **34.5%**（baseline 6.9%，因为它几乎不到达）→ **顺序已修好，时间还没修**；
+3. `ρ_schedule` 中位数：G5 **−5.06 m** / G3 **+4.08 m** / G4 **−41.30 m**。
+
+## V2.6 idea3（后训练）现状
+
+- 文献结论：Logic-VLA = STL 条件 SFT + 轨迹级 IPO（+20.4pp 再 +20.3pp），且**可微鲁棒度当损失会把 NL 能力打崩**（68.5→45.0）；
+  RefineFly = 同底座（openvla-7b+LoRA/AeroVLA 管线）的 token 级 PPO + 失败记忆，+8.37pp，**代码未开源但 HF 权重匿名开放**。
+- 已下载 `refinefly/refinefly`（397 MB，`r=64/α=128/base=openvla-7b`）到 `$R/models/refinefly`，并排进评测队列作为对照臂。
+- 已实现 `ops/make_posttrain_data.py`（Stage-A 数据管线：同一批帧/同一批动作标签，只改写指令为分阶段提示；50/50 与原指令混采）。
+  方向分桶与 baseline `get_semantic_direction` 逐条一致：**3000 条随机位姿 0 处不一致**。
+- 发现：官方训练集只含**训练轨迹**，与评测轨迹不重叠 → 生成 Stage-A 数据必须给训练轨迹补 M0 任务（正在进行）。
+- **未验证**：LoRA 冒烟尚未跑（GPU0 被评测波次占满）。
+
+## V2.7 待办（按优先级）
+
+1. 多地图评测波次跑完 → 汇总表（SR/OSR/ESR/NE/SPL + STL ρ）写入周报；
+2. idea2 在线 `stl` vs `fixed_order` 对照（队列中）；消融（shield off / deadline off）视算力；
+3. RefineFly 权重臂结果（若适配器能加载）；
+4. idea3 LoRA 冒烟（等 GPU）；
+5. 周报 + 组会材料。
+
+## V2.8 运行期 bug 与修复（本轮真实发生，按发现顺序）
+
+### (a) 同一条命令里 `&` 把整条链变成子 shell
+`cd X && R=Y && ... && cmd &` —— `&` 作用于**整个列表**，导致后续命令拿不到 `R`/cwd，
+报 `bash: ops/run_ltlf_eval.sh: No such file` 与 `/logs/...` 路径。
+→ 改为独立的 `ops/launch_arm.sh`（参数化 + `setsid nohup`）。
+
+### (b) `pkill -f "<自己的命令里出现的字符串>"` 会杀掉执行它的 ssh 会话
+两次踩到（`pkill -f run_wave_sequence.sh`、`pkill -f run_next.sh`），现象是 ssh 直接返回 exit 1 且无输出。
+→ 用字符串拼接绕开自匹配：`pat="run_ne""xt.sh"; pkill -f "$pat"`。
+
+### (c) 依赖式排队器（等"前驱进程消失"）存在竞态
+后置等待器在前驱**尚未启动**时 `pgrep` 为空 → 判定"已完成" → **立即启动**。
+后果：12 个臂几乎同时起动 → 全部 CUDA OOM（wave1 未受影响），留下 9 个空结果目录与 9 个僵尸 server。
+→ 废弃 waiter 链，改为**单进程顺序执行**（见 (e)）。
+
+### (d) `setsid nohup cmd &` 让 `$!` 变成 setsid 的 PID
+`setsid` 立即 fork 后退出 → `wait "$pid"` **立刻返回** → 每个波次"瞬间完成"，
+序列脚本在 30 秒内把 6 个波次的 12 个臂全放出去（又一次险些 OOM）。
+→ 改为 `nohup cmd &`（`$!` 即真正的驱动脚本 PID），`wait` 才有效。
+→ 这是本轮最隐蔽的坑：**表面上"自动排队成功"，实际完全没有排队**。
+
+### (e) STL 在线层被 1 条 episode 的冒烟抓出的 3 个真 bug
+1. **控制步重复计数**：`observe()` 在 `__init__`/`update_ltlf`/`record_step` 三处被调用，
+   内部用 `len(positions)` 自增 → 步数以 2× 速度增长，窗口全部错位（摘要里出现 `best_step=49` 而 episode 只有 25 步）。
+   → `observe(i, pose, step=...)` 显式接收控制步；位姿去重只影响轨迹，不影响时钟。
+2. **包络用了默认值**：`LTLfConfig` 默认 `1.0/30.0`，而离线标定是 `1.722/33.638` →
+   在线/离线口径不一致。→ 默认值改为标定值，并在注释里写明来源。
+3. **截止期提示重复触发**：判据用"上次警告的 step"→ 在窗口尾段**每步**都追加一句。
+   → 改为按截止期签名 `(lo, hi)` 去重，每个截止期只提示一次。
+
+### (f) wave1 截断决策
+wave1（MCM RT 全量 35 条）跑到 21/21 时，两臂 SR 已稳定在 .316/.368（Wilson 区间大幅重叠），
+继续跑边际信息低 → 主动截断，把 GPU 让给多地图与 idea2/idea3 的实验。
+截断是通过 `kill -9` 掉两个 python 评测进程实现的（驱动脚本会继续执行清理，sim server 会被回收）。
+
+### (g) 数据事实修正：训练集与评测集不重叠
+`make_posttrain_data.py` 首版在评测轨迹上跑出 0 条样本（`traj_without_task: 594`）——
+因为官方 SFT 数据只含**训练轨迹**。于是给 594 条 MCM 训练轨迹补建 M0 任务
+（`work/tasks/tasks_ModernCityMap_train.json`），再生成 Stage-A 数据（13,715 条）。
+这也顺带确认：**ModularPark 在训练集里是 0 条**（真零样本图）。

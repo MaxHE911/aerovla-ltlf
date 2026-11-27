@@ -1,0 +1,177 @@
+"""Project-owned training entry for idea 3 (logic-conditioned SFT).
+
+The baseline training script (``AeroVLA/src/train_aerovla.py``) hardcodes its data split, output
+directory and step budget at module level and has no CLI.  We must not modify baseline files, so this
+entry re-creates the *same* training recipe (identical LoRA config, identical collator, identical
+Trainer arguments except the ones we parameterise) while importing the baseline's dataset class
+unchanged.
+
+Everything that differs from the baseline run is explicit and logged:
+``SPLIT_JSON`` (the Stage-A json produced by ``ops/make_posttrain_data.py``), ``OUTPUT_DIR``,
+``MAX_STEPS`` and the batch sizes.
+
+Usage (server, from the repository root):
+
+    python ops/train_aerovla_ltlf.py \
+        --split work/posttrain/sft_stageA_mcm.json \
+        --out checkpoints/aero_vla_ltlf_stageA \
+        --micro-batch 2 --accum 8 --max-steps 2500 --epochs 1
+
+Smoke test (a few steps, no checkpoint of value):
+
+    python ops/train_aerovla_ltlf.py --split ... --out work/posttrain/smoke \
+        --micro-batch 1 --accum 1 --max-steps 8 --workers 0
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+
+DEFAULT_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description="LoRA SFT of AeroVLA on logic-conditioned instructions")
+    ap.add_argument("--repo", default=DEFAULT_REPO, help="repository root (contains AeroVLA/)")
+    ap.add_argument("--model-path", default=None, help="default <repo>/AeroVLA/openvla-7b")
+    ap.add_argument("--data-root", default=None, help="default <repo>/AeroVLA/dataset_raw")
+    ap.add_argument("--split", required=True, help="Stage-A json produced by ops/make_posttrain_data.py")
+    ap.add_argument("--out", required=True, help="output checkpoint dir")
+    ap.add_argument("--micro-batch", type=int, default=2)
+    ap.add_argument("--accum", type=int, default=8)
+    ap.add_argument("--lr", type=float, default=2e-4)
+    ap.add_argument("--epochs", type=float, default=1.0)
+    ap.add_argument("--max-steps", type=int, default=-1)
+    ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--lora-rank", type=int, default=64)
+    ap.add_argument("--lora-alpha", type=int, default=128)
+    ap.add_argument("--lora-dropout", type=float, default=0.05)
+    ap.add_argument("--save-steps", type=int, default=2000)
+    ap.add_argument("--logging-steps", type=int, default=10)
+    args = ap.parse_args(argv)
+
+    repo = os.path.abspath(args.repo)
+    aerovla = os.path.join(repo, "AeroVLA")
+    src = os.path.join(aerovla, "src")
+    if not os.path.isdir(src):
+        raise SystemExit("AeroVLA/src not found under %s" % repo)
+    sys.path.insert(0, src)
+
+    os.environ.setdefault("NCCL_P2P_DISABLE", "1")
+    os.environ.setdefault("NCCL_IB_DISABLE", "1")
+
+    import torch
+    import transformers
+    from peft import LoraConfig, get_peft_model
+    from transformers import AutoModelForVision2Seq, AutoProcessor, AutoTokenizer, TrainingArguments
+
+    from aerovla_dataset import AeroVLADataset  # baseline class, imported unchanged
+
+    model_path = args.model_path or os.path.join(aerovla, "openvla-7b")
+    data_root = args.data_root or os.path.join(aerovla, "dataset_raw")
+    split = args.split if os.path.isabs(args.split) else os.path.join(repo, args.split)
+    out = args.out if os.path.isabs(args.out) else os.path.join(repo, args.out)
+
+    print("[ltlf-sft] repo       =", repo)
+    print("[ltlf-sft] model_path =", model_path)
+    print("[ltlf-sft] data_root  =", data_root)
+    print("[ltlf-sft] split      =", split)
+    print("[ltlf-sft] out        =", out)
+    print("[ltlf-sft] micro_bs=%d accum=%d lr=%g epochs=%g max_steps=%d"
+          % (args.micro_batch, args.accum, args.lr, args.epochs, args.max_steps))
+
+    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+    processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
+    if tokenizer.eos_token is None:
+        tokenizer.eos_token = "</s>"
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    local_rank = int(os.environ.get("LOCAL_RANK") or 0)
+    print("[ltlf-sft] using native bf16 (LoRA)")
+    model = AutoModelForVision2Seq.from_pretrained(
+        model_path,
+        torch_dtype=torch.bfloat16,
+        trust_remote_code=True,
+        device_map={"": local_rank},
+        low_cpu_mem_usage=True,
+    )
+    model.resize_token_embeddings(len(tokenizer))
+
+    lora_config = LoraConfig(
+        r=args.lora_rank,
+        lora_alpha=args.lora_alpha,
+        lora_dropout=args.lora_dropout,
+        bias="none",
+        task_type="CAUSAL_LM",
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        modules_to_save=["projector"],
+    )
+    model = get_peft_model(model, lora_config)
+
+    trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    total = sum(p.numel() for p in model.parameters())
+    print("[ltlf-sft] trainable %s / %s (%.4f%%)" % (f"{trainable:,}", f"{total:,}", 100.0 * trainable / total))
+
+    dataset = AeroVLADataset(data_root, split, tokenizer, processor)
+
+    def data_collator(features):
+        pixel_values = torch.stack([f["image"] for f in features]).to(torch.bfloat16)
+        texts = [f["text"] for f in features]
+        prompts = [f["prompt_only"] for f in features]
+        batch = tokenizer(texts, return_tensors="pt", padding="longest", truncation=True, max_length=2048)
+        input_ids = batch.input_ids
+        attention_mask = batch.attention_mask
+        labels = input_ids.clone()
+        for i, prompt in enumerate(prompts):
+            prompt_len = len(tokenizer(prompt, return_tensors="pt", add_special_tokens=True).input_ids[0])
+            labels[i, :prompt_len] = -100
+        labels[attention_mask == 0] = -100
+        return {
+            "pixel_values": pixel_values,
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "labels": labels,
+        }
+
+    training_args = TrainingArguments(
+        output_dir=out,
+        per_device_train_batch_size=args.micro_batch,
+        gradient_accumulation_steps=args.accum,
+        learning_rate=args.lr,
+        weight_decay=0.03,
+        warmup_ratio=0.03,
+        max_grad_norm=1,
+        lr_scheduler_type="cosine",
+        gradient_checkpointing=True,
+        dataloader_num_workers=args.workers,
+        logging_steps=args.logging_steps,
+        save_steps=args.save_steps,
+        save_total_limit=2,
+        num_train_epochs=args.epochs,
+        max_steps=args.max_steps,
+        fp16=False,
+        bf16=True,
+        report_to="none",
+        remove_unused_columns=False,
+        ddp_find_unused_parameters=False,
+    )
+
+    trainer = transformers.Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=dataset,
+        data_collator=data_collator,
+    )
+    print("[ltlf-sft] starting training")
+    trainer.train()
+    trainer.save_model(out)
+    tokenizer.save_pretrained(out)
+    print("[ltlf-sft] finished ->", out)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,33 @@
+{
+ "map": "ModularPark",
+ "split": "unseen_map_valset",
+ "generator_version": "v1.0.0",
+ "generated_at": "2026-11-27T07:23:45",
+ "split_entries": 40,
+ "unique_trajectories": 40,
+ "tasks_built": 40,
+ "tasks_usable": 40,
+ "skipped": 0,
+ "skip_reasons": {},
+ "stage_histogram": {
+  "2": 8,
+  "3": 5,
+  "4": 27
+ },
+ "st_rt_histogram": {
+  "RT": 22,
+  "ST": 18
+ },
+ "off_line_only_histogram": {
+  "0/1 off-line": 8,
+  "0/2 off-line": 3,
+  "0/3 off-line": 7,
+  "1/2 off-line": 2,
+  "1/3 off-line": 7,
+  "2/3 off-line": 13
+ },
+ "landmark_separation_check": {
+  "tasks": 40,
+  "tasks_with_close_pair": 0
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "map": "TropicalIsland",
+ "split": "seen_valset",
+ "generator_version": "v1.0.0",
+ "generated_at": "2026-11-27T07:13:12",
+ "split_entries": 10118,
+ "unique_trajectories": 165,
+ "tasks_built": 165,
+ "tasks_usable": 164,
+ "skipped": 1,
+ "skip_reasons": {
+  "expert_trajectory_does_not_accept": 1
+ },
+ "stage_histogram": {
+  "1": 52,
+  "2": 109,
+  "3": 3
+ },
+ "st_rt_histogram": {
+  "RT": 2,
+  "ST": 162
+ },
+ "off_line_only_histogram": {
+  "0/0 off-line": 52,
+  "0/1 off-line": 109,
+  "0/2 off-line": 1,
+  "1/2 off-line": 2
+ },
+ "landmark_separation_check": {
+  "tasks": 164,
+  "tasks_with_close_pair": 0
+ }
+}

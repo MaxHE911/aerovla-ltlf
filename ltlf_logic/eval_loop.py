@@ -58,6 +58,7 @@ from ltlf_logic.runner import (
     should_gate_stop,
     takeover_action,
 )
+from ltlf_logic.stl_layer import StlLayer, StlLayerConfig
 from ltlf_logic.tasks import split_instruction
 
 __all__ = ["run_eval_ltlf", "TaskSource"]
@@ -181,10 +182,32 @@ class LTLfBatchState(EvalBatchState):
         self.switched_this_step = [False] * batch_size
         self.pending_action: List[Optional[dict]] = [None] * batch_size
         self.step_records: List[List[dict]] = [[] for _ in range(batch_size)]
+        # idea 2 bookkeeping: base (hint-free) stage description per env + deadline hint counter
+        self.stage_base_desc: List[Optional[str]] = [None] * batch_size
+        self.deadline_hints: List[int] = [0] * batch_size
+
+        # ---- idea 2: the online STL layer (monitoring + deadline prompting + safety shield) ----
+        self.stl: Optional[StlLayer] = None
+        if getattr(config, "stl_enabled", False):
+            self.stl = StlLayer(
+                self.task_dicts,
+                StlLayerConfig(
+                    enabled=True,
+                    shield_enabled=bool(getattr(config, "stl_shield", True)),
+                    deadline_enabled=bool(getattr(config, "stl_deadline", True)),
+                    alt_min_m=float(getattr(config, "stl_alt_min_m", 1.0)),
+                    alt_max_m=float(getattr(config, "stl_alt_max_m", 30.0)),
+                    fwd_max_m=float(getattr(config, "stl_fwd_max_m", 8.0)),
+                    event_radius_m=float(config.event_radius_m),
+                ),
+                step_len=float(getattr(config, "stl_step_len_m", 3.0)),
+            )
 
         # sampling point 0 = the initial observation (baseline appends it in _initialize_batch_data)
         for i in range(batch_size):
             self.monitors[i].step(self._pose(i))
+            if self.stl is not None:
+                self.stl.observe(i, self._pose(i), step=0)
             self._refresh_injection(i, step=0, initial=True)
 
     # -- helpers ---------------------------------------------------------------
@@ -221,6 +244,7 @@ class LTLfBatchState(EvalBatchState):
         lm = plan.landmark(atom)
         self.guide_positions[i] = [float(c) for c in lm.center]
         desc = plan.descriptions.get(atom) or lm.description
+        self.stage_base_desc[i] = desc
         self.stage_instructions[i] = build_stage_instruction(desc)
         if prev_atom is not None:
             j = plan.stage_index(prev_atom)
@@ -237,6 +261,23 @@ class LTLfBatchState(EvalBatchState):
             {"stage_idx": j, "ap": atom, "start_step": step, "asset": lm.asset, "description": desc}
         )
 
+    def _apply_deadline_hint(self, i: int, step: int) -> None:
+        """Append a one-sentence deadline warning when the current stage's budget is running out.
+
+        The prompt anchors of the baseline (``<image>\\nFly ... and find the target. ...\\nAction: ``)
+        are preserved; only the object description gets one extra sentence, and it is added at most
+        once per deadline (see ``StlLayer.deadline_hint``).
+        """
+        ap = self.current_atom[i]
+        if ap is None:
+            return
+        hint = self.stl.deadline_hint(i, ap, step)
+        if not hint:
+            return
+        base = self.stage_base_desc[i] or ""
+        self.stage_instructions[i] = build_stage_instruction((base + " " + hint).strip())
+        self.deadline_hints[i] += 1
+
     def _mark_stage_entry(self, i: int, new_events: Sequence[str]) -> None:
         for ap in new_events:
             try:
@@ -252,6 +293,8 @@ class LTLfBatchState(EvalBatchState):
                 continue
             pose = observations[i][-1]["sensors"]["state"]["position"]
             rec = self.monitors[i].step(pose)
+            if self.stl is not None:
+                self.stl.observe(i, pose, step=step)
             if rec.get("duplicate"):
                 continue
             if rec["new_events"]:
@@ -261,6 +304,8 @@ class LTLfBatchState(EvalBatchState):
                 self.counters[i]["violations"] += 1
                 print("[ltlf] %s: spec violated at step %d (residual=BOT)" % (self.seq_names[i], step))
             self._refresh_injection(i, step=step)
+            if self.stl is not None:
+                self._apply_deadline_hint(i, step)
 
     # -- gating + takeover -----------------------------------------------------
     def gate_and_takeover(
@@ -297,6 +342,10 @@ class LTLfBatchState(EvalBatchState):
 
             executed.append(action)
             gated_stops.append(bool(allow))
+            shield_info = {"fired": False, "reason": "", "delta": 0.0}
+            if self.stl is not None:
+                action, shield_info = self.stl.shield(i, executed[-1], self._pose(i))
+                executed[-1] = action
             self.pending_action[i] = {
                 "step": step,
                 "model_stop": model_stop,
@@ -307,6 +356,9 @@ class LTLfBatchState(EvalBatchState):
                 "takeover_reason": takeover_reason,
                 "action_model": {k: round(float(v), 4) for k, v in batch_actions[i].items()},
                 "action_executed": {k: round(float(v), 4) for k, v in action.items()},
+                "stl_shield_fired": bool(shield_info.get("fired")),
+                "stl_shield_reason": shield_info.get("reason", ""),
+                "stl_shield_delta_m": shield_info.get("delta", 0.0),
             }
         return executed, gated_stops
 
@@ -350,6 +402,14 @@ class LTLfBatchState(EvalBatchState):
                 "stage_switch": self.switched_this_step[i],
                 "ltlf_switches": self.counters[i]["stage_switches"],
             }
+            if self.stl is not None:
+                snap = self.stl.observe(i, pose, step=step)
+                rec["stl_rho_safety"] = snap.get("rho_safety")
+                rec["stl_stage_margins"] = snap.get("stage_margins")
+                rec["stl_shield_fired"] = pending.get("stl_shield_fired")
+                rec["stl_shield_reason"] = pending.get("stl_shield_reason")
+                rec["stl_shield_delta_m"] = pending.get("stl_shield_delta_m")
+                rec["stl_deadline_hints"] = self.deadline_hints[i]
             self.step_records[i].append(rec)
             self.logger.write_step(self.seq_names[i], rec)
             self.switched_this_step[i] = False
@@ -402,6 +462,9 @@ class LTLfBatchState(EvalBatchState):
                 "config": self.config.to_dict(),
             }
             summary["sr_and_esr"] = bool(summary["success"]) and bool(summary["esr_accepted"])
+            if self.stl is not None:
+                summary["stl"] = self.stl.summary(i)
+                summary["stl"]["deadline_hints_injected"] = self.deadline_hints[i]
             self.logger.write_summary(summary)
 
 
