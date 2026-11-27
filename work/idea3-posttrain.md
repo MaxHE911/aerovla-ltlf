@@ -125,11 +125,24 @@ behavior beyond what is necessary"。→ **不要走 robustness reward，走偏�
 
 - [x] 参考论文结论提取（Logic-VLA / RefineFly / STL-repair 三份报告在 `work/lit/`）
 - [x] 可行性事实核实（训练脚本、410k 数据、LoRA 超参、动作量化、RefineFly 权重可下载）
-- [x] RefineFly 权重已下载（`$R/models/refinefly`，397 MB）并列入评测队列
-- [x] 数据管线 `ops/make_posttrain_data.py`（见 implementation-log）
-- [ ] 训练入口 `ops/train_aerovla_ltlf.py`
-- [ ] 冒烟（P2）
-- [ ] 全量 Stage A / Stage B（受算力约束，排到夜间）
+- [x] RefineFly 权重已下载（`$R/models/refinefly`，397 MB）并跑完对照臂（见周报 §6.1）
+- [x] 数据管线 `ops/make_posttrain_data.py`（13,715 条；90/10 与 50/50 两种混采）
+- [x] 训练入口 `ops/train_aerovla_ltlf.py`（支持 `--init-adapter` 续训、`--entropy-monitor`）
+- [x] **v1 从零训（1k, lr 2e-4, 125 步）→ 先验塌缩**：SR 0/10，139 步只有 2 种动作
+- [x] **v3 从零训（2k, mix90, r=16, lr 2e-5, 200 步）→ 仍塌**：105 步 10 种动作
+- [x] **v4 从 AeroVLA checkpoint 续训（3k, lr 2e-5, 200 步）→ 治好**：
+      动作多样性 **218/306 步**（最高频动作 5%）、**SR .625、碰撞 .375**（配对 vs 原权重 .625 vs .500，N=8 不显著）
+- [ ] Stage B：偏好对齐（DPO）——**下一步**
+- [ ] 全量 Stage-A（≈7 h 独占 GPU）与多地图复核（尤其 ModularPark 零样本图）
+
+### 6.1 关键教训（务必保留）
+
+1. **必须从 SFT checkpoint 续训**（`--init-adapter AeroVLA/checkpoints/aero_vla`）。
+   从裸 `openvla-7b` 起步的"后训练"其实是**用几千条样本重建策略**，结果必然是动作先验。
+2. **loss 不是策略质量的代理**：v1 的 loss 从 6.20 掉到 0.82，策略同时退化成常量输出。
+3. **动作多样性（0/1 判据）比 loss 靠谱**：v1 = 2 种/139 步，v4 = 218 种/306 步，一眼可辨。
+4. `--freeze-projector` 这条路**走不通**（会让 loss 无梯度，实测报
+   `element 0 of tensors does not require grad`），已从脚本移除。
 
 ## 7. 局限
 

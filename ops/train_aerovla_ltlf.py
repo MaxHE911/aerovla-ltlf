@@ -56,6 +56,13 @@ def main(argv=None) -> int:
                          "every N optimizer steps; entropy collapsing to ~0 is the earliest sign of "
                          "the mode collapse observed on 2026-11-27 (loss 6.2 -> 0.8 while the policy "
                          "started emitting one constant action)")
+    ap.add_argument("--init-adapter", default=None,
+                    help="continue training from an existing LoRA adapter (e.g. "
+                         "AeroVLA/checkpoints/aero_vla).  THIS IS USUALLY WHAT YOU WANT: training from "
+                         "the bare openvla-7b base with a couple of thousand samples produces a weak "
+                         "policy that emits the action prior (observed 2026-11-27: three runs, all "
+                         "'collapsed' to the modal action of the demo distribution).  Continuing from "
+                         "the 410k-sample AeroVLA adapter instead keeps the vision->action pathway.")
     args = ap.parse_args(argv)
 
     repo = os.path.abspath(args.repo)
@@ -115,7 +122,17 @@ def main(argv=None) -> int:
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
         modules_to_save=["projector"],
     )
-    model = get_peft_model(model, lora_config)
+    if args.init_adapter:
+        # continue from an existing adapter (AeroVLA SFT) instead of starting from the base model
+        from peft import PeftModel
+
+        init_path = args.init_adapter
+        if not os.path.isabs(init_path):
+            init_path = os.path.join(repo, init_path)
+        print("[ltlf-sft] continuing from adapter:", init_path)
+        model = PeftModel.from_pretrained(model, init_path, is_trainable=True)
+    else:
+        model = get_peft_model(model, lora_config)
 
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())

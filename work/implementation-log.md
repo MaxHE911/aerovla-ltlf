@@ -639,3 +639,41 @@ cv2.error: ... !_src.empty() in function 'cvtColor'
 2. Stage-A 重训：lr 5e-5、动作熵早停、3k–5k 样本；
 3. 多地图覆盖（NYC/TI/NYCEM）：需要 GPU 空闲时段；
 4. 障碍谓词（深度图进 STL）：需要新增取图通道（不改 baseline，在 eval 侧单独取）。
+
+## V2.11 idea3 三次训练：从"塌缩"到"治好"（本轮最后一个结果）
+
+### 三次尝试
+
+| # | 初始化 | 数据 | lr / 步数 | 不同动作数 | 最高频动作占比 | SR | 碰撞 |
+|---|---|---|---|---|---|---|---|
+| v1 `sa_order-a` | **openvla-7b 从零** | 1k | 2e-4 / 125 | **2 / 139** | **98%** | 0/10 | 90% |
+| v3 `sa3-a` | **openvla-7b 从零** | 2k（90% 原指令，r=16） | 2e-5 / 200 | 10 / 105 | 42% | .125（8 条） | .875 |
+| **v4 `sa4-a`** | **AeroVLA checkpoint** | 3k（分阶段提示） | 2e-5 / 200 | **218 / 306** | **5%** | **.625**（8 条） | **.375** |
+
+配对检验（同 8 任务、均 `fixed_order`）：v4 vs AeroVLA 原权重 → 都成 2 / 仅 v4 成 3 / 仅原权重成 2 / 都不成 1
+→ .625 vs .500，**p = 1.00**（N=8，不显著）。
+
+### 诊断链（这是本节真正的价值）
+
+1. **先看到"塌缩"**：v1 的 loss 从 6.20 掉到 0.82，同时策略变成常量输出（136/139 步同一动作）。
+2. **先归因于 lr 并尝试修正**：v3 把 lr 降到 2e-5、加 90% 原指令混采、把 LoRA 秩降到 16 —— **仍然塌**。
+   → 说明不是 lr 问题。
+3. **查"塌缩输出的是什么"**：MCM 训练集动作分布极度单峰（**41% 样本 |fwd|≈4.9**），
+   而塌缩输出的正是 `(fwd=4.898, down=−0.102, yaw=0)` —— **恰是动作先验的众数**。
+4. **真正的错误在上游**：`train_aerovla_ltlf.py` 原来从 `openvla-7b` **裸底座**起步，
+   等于"用 1–2k 条样本重建一个策略"；AeroVLA 的 checkpoint 是 41 万条 × 5 epoch 训出来的。
+5. **修正**：加 `--init-adapter`，用 `PeftModel.from_pretrained(model, AeroVLA/checkpoints/aero_vla, is_trainable=True)`
+   在 SFT checkpoint 上**继续训** → 动作多样性 2 → **218**，SR 0 → **.625**。
+
+### 踩坑
+
+- `--freeze-projector`（冻结 projector 保通路）**行不通**：
+  冻结后 loss 无梯度，报 `element 0 of tensors does not require grad`。已从脚本删除。
+- `--entropy-monitor` 已实现（`EntropyTrainer.log` 里算 action-token 熵），
+  但本轮**输出没有出现在日志里**（`log()` 覆写后 dict 行不再打印），**标注为未验证**；
+  替代方案是用**动作多样性**做判据（v1=2 种、v4=218 种，一眼可辨，且不需要改动训练循环）。
+
+### 给下一轮的两句话
+
+1. **任何后训练都必须 `--init-adapter`**，否则一定退化成动作先验；
+2. **判据用动作多样性而不是 loss**：跑 1 条 episode 数"不同动作数"只要 4 分钟，比看 loss 可靠得多。
