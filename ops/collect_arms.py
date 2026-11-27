@@ -29,22 +29,28 @@ ARMS = [
     # --- ModernCityMap, full RT set, idea 1 vs baseline+long ---
     ("mcm_rt35_ours", "w1-g5-rt35", "mcm_rt35", "fixed_order"),
     ("mcm_rt35_base_long", "w1-g4-rt35", "mcm_rt35", "long_instruction"),
-    # --- ModularPark (unseen map) ---
-    ("mp_ours", "mp-a", "unseen_map", "fixed_order"),
-    ("mp_base_long", "mp-b", "unseen_map", "long_instruction"),
-    # --- idea 2 (STL) vs idea 1, same episodes ---
+    # --- idea 2 (STL: monitor + deadline + shield) vs idea 1, same episodes ---
     ("stl_ours", "stl-a", "stl", "stl"),
     ("stl_base_order", "stl-b", "stl", "fixed_order"),
+    # --- safety-envelope ablation: altitude floor 6.0 m vs expert p01 ---
+    ("stlalt_alt6", "stlalt-a", "stlalt", "stl"),
+    ("stlalt_p01", "stlalt-b", "stlalt", "stl"),
+    # --- idea 3: Stage-A logic-conditioned SFT checkpoint vs original checkpoint ---
+    ("sa_order_sft", "sa_order-a", "sa_order", "fixed_order"),
+    ("sa_order_base", "sa_order-b", "sa_order", "fixed_order"),
+    ("sa_single_sft", "sa_single-a", "sa_single", "single_stage"),
+    ("sa_single_base", "sa_single-b", "sa_single", "single_stage"),
     # --- RefineFly post-trained weights vs AeroVLA SFT, same mode ---
     ("rf_refinefly", "rf-a", "refinefly", "original"),
     ("rf_aerovla", "rf-b", "refinefly", "original"),
+    # --- ModularPark (unseen map, zero training samples), 40-step horizon ---
+    ("mp40_ours", "mp40-a", "unseen_map", "fixed_order"),
+    ("mp40_base_long", "mp40-b", "unseen_map", "long_instruction"),
     # --- other seen maps ---
     ("nyc_ours", "nyc-a", "nyc", "fixed_order"),
     ("nyc_base_long", "nyc-b", "nyc", "long_instruction"),
     ("ti_ours", "ti-a", "ti", "fixed_order"),
     ("ti_base_long", "ti-b", "ti", "long_instruction"),
-    ("nycem_ours", "nycem-a", "nycem", "fixed_order"),
-    ("nycem_base_long", "nycem-b", "nycem", "long_instruction"),
 ]
 
 

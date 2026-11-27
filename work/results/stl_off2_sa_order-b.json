@@ -1,0 +1,99 @@
+{
+ "label": "sa_order-b",
+ "logs_dir": "/mnt/kai_ckp/yiding/MaxHE/ltlf_logs/sa_order-b",
+ "tasks_path": "work/tasks/tasks_ModernCityMap_seen_valset.json",
+ "step_len_m": 4.3,
+ "envelope": {
+  "alt_min_m": 1.722,
+  "alt_max_m": 33.638,
+  "alt_median_m": 9.841,
+  "alt_p01_m": 1.722,
+  "alt_p99_m": 33.638,
+  "envelope_source": "expert_flight",
+  "envelope_n_samples": 13615,
+  "expert_m_per_frame": 0.944
+ },
+ "n": 1,
+ "aggregate": {
+  "n": 1,
+  "rho_chain_mean": -47.8775,
+  "rho_schedule_mean": -50.0,
+  "rho_safety_mean": -25.2095,
+  "rho_chain_median": -47.8775,
+  "rho_schedule_median": -50.0,
+  "rho_safety_median": -25.2095,
+  "rho_safety_worst": -25.2095,
+  "chain_sat_rate": 0.0,
+  "schedule_sat_rate": 0.0,
+  "safety_sat_rate": 0.0,
+  "sr": null,
+  "osr": null,
+  "collision_rate": null,
+  "stage_in_window_rate": 0.0,
+  "stage_late_rate": 0.0,
+  "stage_never_entered_rate": 1.0,
+  "n_stages_total": 3,
+  "mean_steps": 1.0,
+  "chain_vs_ltlf_n": 1,
+  "chain_vs_ltlf_agreement": 1.0
+ },
+ "rows": [
+  {
+   "seq": "521576c2-5aa4-4bba-affa-a0e831a696da",
+   "label": "sa_order-b",
+   "ltlf_accepted": false,
+   "n_steps": 1,
+   "rho_chain_raw": -47.8774660713074,
+   "rho_schedule_raw": -Infinity,
+   "rho_safety_raw": -25.209500000000002,
+   "rho_total_raw": -Infinity,
+   "rho_chain": -47.8774660713074,
+   "rho_schedule": -50.0,
+   "rho_safety": -25.209500000000002,
+   "rho_total": -50.0,
+   "chain_sat": false,
+   "schedule_sat": false,
+   "safety_sat": false,
+   "per_stage": {
+    "L0": {
+     "best_margin_m": -13.7881,
+     "best_step": 0,
+     "window": [
+      0,
+      4
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -13.7881
+    },
+    "L1": {
+     "best_margin_m": -35.8638,
+     "best_step": 0,
+     "window": [
+      6,
+      14
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -Infinity
+    },
+    "g": {
+     "best_margin_m": -47.8775,
+     "best_step": 0,
+     "window": [
+      9,
+      23
+     ],
+     "in_window": false,
+     "late": false,
+     "never_entered": true,
+     "rho": -Infinity
+    }
+   },
+   "binding_stage": null,
+   "binding_rho": null
+  }
+ ]
+}

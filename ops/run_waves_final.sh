@@ -34,7 +34,7 @@ arm(){ # arm <tag> <mode> <port> <split> <tasks> [K=V ...]
   nohup env TAG="$tag" MODE="$mode" PORT="$port" SPLIT="$split" TASK_JSON="$tasks" \
       GPU=0 STEPS=80 "$@" \
       bash ops/run_ltlf_eval.sh > "$R/logs/$tag.driver.log" 2>&1 < /dev/null &
-  echo $!
+  LAST_PID=$!   # set a global: a command-substitution subshell would own the child and `wait` would fail (rc=127)
 }
 
 wave(){ # wave <label> <portA> <portB> <split> <tasks> <modeA> <modeB> [extraA] [extraB]
@@ -42,44 +42,50 @@ wave(){ # wave <label> <portA> <portB> <split> <tasks> <modeA> <modeB> [extraA] 
   log "=== wave $label START modeA=$ma modeB=$mb split=$split ==="
   local tA="$label-a" tB="$label-b" pA pB
   # shellcheck disable=SC2086
-  pA=$(arm "$tA" "$ma" "$pa" "$split" "$tasks" $ea)
+  arm "$tA" "$ma" "$pa" "$split" "$tasks" $ea; pA=$LAST_PID
   sleep 8
   # shellcheck disable=SC2086
-  pB=$(arm "$tB" "$mb" "$pb" "$split" "$tasks" $eb)
+  arm "$tB" "$mb" "$pb" "$split" "$tasks" $eb; pB=$LAST_PID
   log "wave $label pids A=$pA($tA) B=$pB($tB)"
   wait "$pA"; log "wave $label: $tA exited rc=$?"
   wait "$pB"; log "wave $label: $tB exited rc=$?"
   sleep 25
 }
 
-# 1. idea 2 (STL: monitoring + deadline pressure + safety shield) vs idea 1 (same stage machine)
+# Priority order (value / wall clock), see work/plan-v2.md §2
+# 1. idea 2 (STL: monitor + deadline pressure + safety shield) vs idea 1
 wave stl 30300 30310 work/splits/rt12.json "$TSK" stl fixed_order
 
-# 2. RefineFly post-trained adapter vs the AeroVLA SFT checkpoint, identical mode and episodes
-wave rf 30400 30410 work/splits/rt12.json "$TSK" original original \
-     "MODEL_PATH=$R/models/refinefly" "MODEL_PATH=$BASE"
-
-# 3. safety-envelope ablation: altitude floor 6.0 m vs the expert p01 of 1.722 m
+# 2. safety-envelope ablation: altitude floor 6.0 m vs the expert p01 (1.722 m)
 wave stlalt 30810 30820 work/splits/rt12.json "$TSK" stl stl \
      "LTLF_EXTRA_ARGS=--ltlf-config-stl_alt_min_m 6.0" \
      "LTLF_EXTRA_ARGS=--ltlf-config-stl_alt_min_m 1.722"
 
-# 4-6. remaining seen maps (idea 1 vs baseline + long instruction)
+# 3. idea 3: Stage-A logic-conditioned SFT checkpoint vs the original checkpoint (staged prompts)
+if [ -f "$CKPT/adapter_model.safetensors" ]; then
+  wave sa_order 30910 30920 work/splits/rt12.json "$TSK" fixed_order fixed_order \
+       "MODEL_PATH=$CKPT" "MODEL_PATH=$BASE"
+else
+  log "WARNING: Stage-A checkpoint missing, skipping sa_order"
+fi
+
+# 4. RefineFly post-trained adapter vs the AeroVLA SFT checkpoint, identical mode/episodes
+wave rf 30400 30410 work/splits/rt12.json "$TSK" original original \
+     "MODEL_PATH=$R/models/refinefly" "MODEL_PATH=$BASE"
+
+# 5. unseen map (ModularPark): episodes there are ~140 m long, so cap the horizon at 40 steps
+wave mp40 30200 30210 work/splits/mp_rt14.json work/tasks/tasks_ModularPark_unseen_map_valset.json \
+     fixed_order long_instruction "STEPS=40"
+
+# 6. remaining seen maps
 wave nyc 30500 30510 work/splits/NewYorkCity_rt8.json work/tasks/tasks_NewYorkCity_seen_valset.json \
      fixed_order long_instruction
 wave ti 30600 30610 work/splits/TropicalIsland_st8.json work/tasks/tasks_TropicalIsland_seen_valset.json \
      fixed_order long_instruction
-wave nycem 30700 30710 work/splits/NYCEnvironmentMegapa_rt6.json work/tasks/tasks_NYCEnvironmentMegapa_seen_valset.json \
-     fixed_order long_instruction
 
-# 7-8. idea 3: the Stage-A logic-conditioned SFT checkpoint vs the original checkpoint
+# 7. idea 3 second check: did the fine-tune damage the natural-language (single-goal) ability?
 if [ -f "$CKPT/adapter_model.safetensors" ]; then
-  wave sa_order 30910 30920 work/splits/rt12.json "$TSK" fixed_order fixed_order \
-       "MODEL_PATH=$CKPT" "MODEL_PATH=$BASE"
   wave sa_single 30930 30940 work/splits/rt8.json "$TSK" single_stage single_stage \
        "MODEL_PATH=$CKPT" "MODEL_PATH=$BASE"
-else
-  log "WARNING: Stage-A checkpoint missing at $CKPT, skipping waves 7-8"
 fi
-
 log "=== final sequence finished ==="

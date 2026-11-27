@@ -575,3 +575,36 @@ wave1（MCM RT 全量 35 条）跑到 21/21 时，两臂 SR 已稳定在 .316/.3
 因为官方 SFT 数据只含**训练轨迹**。于是给 594 条 MCM 训练轨迹补建 M0 任务
 （`work/tasks/tasks_ModernCityMap_train.json`），再生成 Stage-A 数据（13,715 条）。
 这也顺带确认：**ModularPark 在训练集里是 0 条**（真零样本图）。
+
+## V2.9 运行期第二次事故链（08:15-08:30）与最终机制
+
+### (h) `$(arm ...)` 命令替换让 `wait` 失效（rc=127）
+`pA=$(arm ...)` 里的 `&` 进程是**子 shell 的子进程**，主脚本 `wait` 拿不到 → 返回 127，
+于是"每波都瞬间完成"。修复：`arm()` 内部设全局 `LAST_PID=$!`，调用侧 `arm ...; pA=$LAST_PID`。
+这条和 (d) 是同一类错误的不同变体，教训一致：**后台进程必须由同一个 shell 启动并等待**。
+
+### (i) `stl` 臂中途崩溃：baseline 拿到空图像
+```
+File ".../aerovla_wrapper_ui.py", line 86, in prepare_inputs
+    frame_front_rgb = cv2.cvtColor(rgb_list[0], cv2.COLOR_BGR2RGB)
+cv2.error: ... !_src.empty() in function 'cvtColor'
+```
+`stl-a` 在 2 条 episode 后退出（rc=0，因为驱动脚本记录的是 timeout 的返回码）。
+**这不是 STL 逻辑的错**：崩溃点在 baseline 包装器，仿真切换场景后偶发返回空帧（transient）。
+处理：清空该臂的半成品目录后整波重跑（避免新旧 episode 混在同一 tag 下）。
+
+### (j) 之前那批"同时启动"确实发生过 CUDA OOM
+`grep -l "CUDA out of memory" $R/logs/*/eval.log` → `stl-ctl / stl-g5 / ti-g4 / ti-g5` 均命中，
+证明 (c) 之后 12 臂并发的那次事故里确有 OOM；另有若干臂是被我主动 kill 的，两者要区分开写。
+
+### (k) 自匹配杀进程又踩到一次
+`for pid in $(pgrep -f "run_eval_ltlf.py --run_type")` —— 这条命令**自己的 cmdline 里就含该字符串**，
+于是脚本把自己杀掉（无输出、exit 1）。→ 所有 pgrep/pkill 的搜索串都必须拆字面量：
+`pat="run_eval_""ltlf.py"; pgrep -f "$pat"`。
+
+### 当前采用的最小可靠机制（冻结）
+1. 启动一个臂：`ops/launch_arm.sh`（参数化 env，`setsid nohup`）。
+2. 排队：`ops/run_waves_final.sh` —— **单进程**、`nohup ... &` + `LAST_PID` + `wait`、
+   波内两臂并行、波间 `sleep 25`；自定义环境通过位置参数 `K=V` 传入。
+3. 优先级：idea2 核心 → 高度消融 → 后训练 → RefineFly → 零样本图（STEPS 降到 40）→ 覆盖图 → 后训练 NL 保持检查。
+4. 每波结束后立刻用 `ops/collect_arms.py` / `ops/paired_compare.py` 出数，不等全部跑完。

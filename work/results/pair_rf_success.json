@@ -1,0 +1,17 @@
+{
+ "metric": "success",
+ "n_paired": 4,
+ "both": 0,
+ "only_a": 1,
+ "only_b": 0,
+ "neither": 3,
+ "rate_a": 0.25,
+ "rate_b": 0.0,
+ "mcnemar_exact_p": 1.0,
+ "only_a_seqs": [
+  "8daaf47b-a164-49f8-b6f8-3e63fae02f72"
+ ],
+ "only_b_seqs": [],
+ "arm_a": "rf-a",
+ "arm_b": "rf-b"
+}

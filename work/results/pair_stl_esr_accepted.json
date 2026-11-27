@@ -1,0 +1,21 @@
+{
+ "metric": "esr_accepted",
+ "n_paired": 12,
+ "both": 2,
+ "only_a": 2,
+ "only_b": 2,
+ "neither": 6,
+ "rate_a": 0.3333,
+ "rate_b": 0.3333,
+ "mcnemar_exact_p": 1.0,
+ "only_a_seqs": [
+  "982c8942-8ff0-41c8-8c37-b2741bab1cd8",
+  "f14e7115-e964-47b9-89cf-b6069541ba8c"
+ ],
+ "only_b_seqs": [
+  "6badc126-d716-494e-ac36-f5656656f071",
+  "8daaf47b-a164-49f8-b6f8-3e63fae02f72"
+ ],
+ "arm_a": "stl-a",
+ "arm_b": "stl-b"
+}
