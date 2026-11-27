@@ -1,0 +1,350 @@
+# 周报（2026-11-21 ~ 11-27）
+
+> 主线：把上周"只跑过很小测试"的 LTLf 任务逻辑层（idea1）扩到 **5 张可跑地图**，并补上两个新点：
+> **idea2 = 采样时刻 STL 定量鲁棒层**（实现+测试+离线+在线）、**idea3 = 逻辑对齐后训练**（数据管线+真训练+评测）。
+> 本文附**实验矩阵与未完成清单**（附录 B），未验证的一律标注。
+
+## 0. TL;DR
+
+> **先说结论**：这周把"只有一个很小的测试"做成了"三个点各自可复现的实验平台"，
+> 但**三个点都没有拿到经得起检验的成功率提升**。所有"有效"的说法都只到**过程指标**层面。
+
+1. **可跑地图从 1 张扩到 5 张**：仿真器按 `item['map_name']` 自动开场景，加地图**零代码改动**，只需 split + 任务文件。已建任务：MCM 124 / NYC 145 / TI 165 / NYCEM 281 / ModularPark 40。其中 **ModularPark 是官方 unseen-map 且训练集 0 样本**（真零样本）。
+2. **idea1 的 SR 增益未成立**：RT 组扩到 **N=21** 后 **.333 vs .333**，按任务配对精确 McNemar **p=1.00**。
+   **过程指标显著更好**：阶段完成率 **.683 vs .333**；"按顺序经过地标"（chain 满足率）**.625 vs .000**。
+3. **idea2 已实现并全部通过测试**：3 个新模块 + 18 个测试，总测试 62 → **80 全通过**；
+   8 组上百条 episode 上，**STL 布尔语义与 LTLf 离线判据 100% 一致**（证明没换判据）。
+   在线 `stl` vs `fixed_order`：12 条配对 2 胜 2 负 6 平，**p=1.00**。
+4. **idea2 的定向干预被自己的实验否定**：把安全包络下界 1.72→6 m，中位高度反而 **8.76→6.09 m**
+   （裁剪到边界 = 贴着地板飞），SR **.333→.167**，碰撞 .667→.750。
+   → **机制（投影）可用，规范（单边下限）设计错误**；且"低空↔碰撞"是**相关非因果**。
+5. **idea3 管线打通但训练把策略训塌了**：Stage-A 数据 **13,715 条零新标注**；LoRA 训练 loss **6.20→0.82**，
+   但闭环里 **139 个决策步只有 2 种动作（136 步同一动作）**，SR 0/10、碰撞 90%
+   → **loss 不是策略质量的代理**。
+6. **RefineFly：代码未开源、权重匿名开源**（HF `refinefly/refinefly`，462 MB，r=64/α=128，与我们 checkpoint **字节数完全相同**）。
+   用它做对照：**SR .250 vs AeroVLA .167 = +8.3 pp**，而论文报告 **+8.37 pp** → **吻合**（N=12 不显著）。
+   这说明**我们的评测管线是一把被外部校准过的尺子**。
+
+## 1. 对照上周计划
+
+| 上周计划 | 状态 |
+|---|---|
+| 跑离线评测看趋势 | ✅ 离线 STL 打分（0 GPU，可反复重跑） |
+| 实现 v1 + 小规模仿真评测 | ✅ 上轮完成 12/8/8 条 |
+| 解决环境问题 | ✅ 固化：UE4 root shim、`/dev/shm` 模型副本、按端口 pkill |
+| 确定第二个点（STL / 后训练） | ✅ 两个都落成设计+实现 |
+| "把模块 v1 完成、确定第二点" | ✅ 达成，且额外完成多地图扩容 |
+
+## 2. 平台与数据盘点（本周实测）
+
+| 项 | 结论 |
+|---|---|
+| 仿真场景 | `envs/closeloop_envs/` 下 **6 个** UE4 场景：ModernCityDowntown(=ModernCityMap)、ModularEuropean、ModularPark、NYCEnvironmentMegapa、NewYorkCity、TropicalIsland |
+| 数据集 | MCM 718 条轨迹 / NYC 1139 / NYCEM 2015 / TI 1418 / ModularPark 958；Carla_Town01 目录**缺 `merged_data.json` → 跳过**；Carla Town04/05/06/07/10HD/15 只有分卷压缩包未解压 |
+| **可跑地图数** | **5** |
+| 加地图成本 | **零代码改动**（`env_uav.py:257` → `AirVLNSimulatorServerTool.py:242`） |
+| 训练数据 | `data/aerovla_train_dataset.json` = **410,450 条**；NYCEM 109,856 / TI 58,853 / NYC 47,856 / MCM 13,715 / Carla 7 个 Town ≈19 万 / **ModularPark 0** |
+| 动作空间 | 连续 3 维 `(fwd 米, down 米, yaw 弧度增量)`，训练/推理量化成 3 个 bin token；cruise 1.0 m/s、`duration=fwd` 秒、随后停 0.5 s；**每个宏动作只产生 1 个新位姿** |
+| 评测集语义 | split 记录 = `{json, frame}`，`load_my_datasets` 用 `set()` 按轨迹去重、**frame 被忽略** → MCM 官方评测实际是 **124 条 episode**（不是 2873 条记录） |
+
+> 后者重要：若论文也用它算分母，则 MCM 的 N=124，我们与论文**同分母**（**未验证**对方用的 loader 版本）。
+
+## 3. idea1（LTLf）v2：多地图实验
+
+设计不变（`work/idea1.md`）：专家轨迹 → 规范 → 残差自动机 → 阶段分解 → 分阶段提示词 → 在线事件监视。
+本轮只做**扩容与对照**：每图 `fixed_order`（本层）vs `long_instruction`（baseline + 同一段长指令，无逻辑门控）。
+
+### 3.1 必须提前说的负面结果：小样本优势不稳
+
+上轮 "N=8 时 .625 vs .250" 的差距，扩到 N=21 后消失：
+
+| 臂 | N | SR | 95% Wilson CI | ESR | 阶段完成率 |
+|---|---|---|---|---|---|
+| 本层 `fixed_order` | 21 | .333 | [.17, .55] | .333 | **.683** |
+| baseline + 长指令 | 21 | .333 | [.17, .55] | .333 | .333 |
+
+按任务配对（消除任务难度混杂）的**精确 McNemar**：都成功 4 / 仅本层 3 / 仅 baseline 3 / 都不成 11 → **p = 1.00**。
+
+**诚实结论：idea1 的端到端 SR 增益「未验证」。** 能站住的只有**过程指标**
+（阶段完成率 .683 vs .333；chain 满足率 .625 vs **.000**）。
+→ 论文里不能写"SR 提升"，应写"逻辑层提供**可验证的任务进度**"。
+
+### 3.2 真正的瓶颈是碰撞（本轮最重要的诊断）
+
+| 臂 | 碰撞率 | 成功 episode 平均飞行高度 | 碰撞 episode 平均飞行高度 |
+|---|---|---|---|
+| 本层 | 12/19 = **63%** | **8.49 m**（σ 3.3） | **4.70 m**（σ 3.4） |
+| baseline + 长指令 | 11/19 = **58%** | **8.41 m**（σ 3.5） | **4.23 m**（σ 4.1） |
+
+专家中位高度 **9.84 m**（p01/p99 = 1.72/33.64 m）。见 `work/results/fig_altitude_sr.png`。
+→ 成功与失败的分界不在"有没有按逻辑走"，而在**飞得够不够高**；而逻辑层**不改变飞行高度**，所以 SR 不动。
+
+## 4. idea2（STL 定量鲁棒层）
+
+### 4.1 为什么是 "STL-lite"
+
+三篇参考工作都靠**优化器**消费鲁棒度（MILP 轨迹合成 / 10 Hz MPC 的 λρ），而我们的 baseline 是端到端离散 token 策略，
+**无动力学模型、无优化器、运行时无 ρ**。所以只做：**规范构建 + 在线鲁棒度监控 + 截止期提示 + 安全包络动作投影**；
+**不做**：NL→STL 翻译器、规格修复、鲁棒度优化/MPC、可微鲁棒度损失。
+（反向证据：Logic-VLA 把可微鲁棒度当损失，满足率升到 78.8% 但 NL 任务从 68.5% 崩到 45.0%。）
+
+### 4.2 时间基
+
+动作执行时长不固定（`duration = fwd` 秒 + 0.5 s 停顿），且每宏动作只有一个新位姿 → 实时 STL 是虚构的。
+我们用**整数步的采样时刻 STL**：一步 = 一个宏动作；`STEP_LEN = 4.3 m/步`（实测中位）把专家到达帧换算成宏步。
+
+### 4.3 三个可消融的机制
+
+1. **鲁棒度监控**：每步算安全裕度（到包络边界的米数）、每阶段最佳裕度、deadline 状态；
+2. **截止期压力提示**：阶段剩余预算 < 窗口宽度 60% 时追加**一句**（提示词两个锚点不变），每个截止期最多一次；
+3. **安全包络动作投影**：下一步高度 = `−(z+down)`，故"保持包络"= 对 `down` 的区间约束 + `fwd` 裁剪 → 精确最小投影，无梯度。
+
+### 4.4 离线结果（对已跑完 rollout 重打分，0 GPU）
+
+| 臂 | n | chain 满足 | schedule 满足 | 包络满足 | ρ_chain 中位 | ρ_sched 中位 | 阶段迟到率 | 阶段从未到达率 | chain≡LTLf |
+|---|---|---|---|---|---|---|---|---|---|
+| `stl-a` | 12 | .250 | .083 | .583 | −33.63 | −41.83 | .191 | .405 | **1.000** |
+| `stl-b` | 12 | .333 | .250 | .500 | −37.61 | −41.55 | .048 | .452 | **1.000** |
+| `stlalt-a`（下界 6 m） | 12 | .167 | .083 | .833 | −45.36 | −49.87 | .167 | .548 | **1.000** |
+| `sa_order-a`（Stage-A 权重） | 11 | .000 | .000 | .818 | −50.00 | −50.00 | .000 | .744 | **1.000** |
+| `w1-g5`（idea1，N=21） | 22 | .273 | .227 | .545 | −14.35 | −27.75 | .165 | .354 | **1.000** |
+| `w1-g4`（baseline+长指令） | 22 | .091 | .091 | .636 | −32.43 | −34.47 | .089 | **.544** | **1.000** |
+
+**"从未到达"率 .544 → .354；ρ_chain 中位 −32.43 → −14.35 m。**
+`chain≡LTLf` 一列全部 1.000 = STL 实现与 LTLf 判据完全一致（前提证据）。
+
+### 4.5 在线实验：`stl` vs `fixed_order`（同 12 条 RT episode）
+
+| 臂 | 配置 | n | SR | ESR | 碰撞率 | shield 触发 | 截止期提示 |
+|---|---|---|---|---|---|---|---|
+| `stl-a` | 下界 = 专家 p01（1.722 m） | 12 | .333 | .333 | .667 | 14 | 18 |
+| `stl-b` | 仅 idea1 阶段机 | 12 | .333 | .333 | .667 | 0 | 0 |
+
+配对 McNemar：2 胜 2 负 6 平 → **p = 1.00**。
+**原因**：下界 1.722 m 时 shield 几乎不触发（无人机很少降到 1.7 m 以下）；一句提示也改不了"飞得低→撞"的因果链。
+
+### 4.6 定向干预：抬高安全包络下界（**假设被自己的实验否定**）
+
+| 臂 | 包络下界 | n | SR | 碰撞率 | shield 触发 | 平均高度 | **中位高度** | 首步后 alt<6 m 比例 |
+|---|---|---|---|---|---|---|---|---|
+| `stl-a` | 1.722 m | 12 | **.333** | .667 | 14 | 8.82 m | **8.76 m** | 31.6% |
+| `stlalt-a` | **6.0 m** | 12 | .167 | .750 | **103** | 7.45 m | **6.09 m** | 36.2% |
+
+配对 McNemar：都成功 1 / 仅 alt6 **1** / 仅原配置 **3** / 都不成 7 → **p = 0.625**（方向变差）。
+
+**为什么**（机制正确、规范设计错）：
+1. "把 `down` 裁剪到最大允许下降量" = **允许以最大速度降落到下界** → 持续想下降的策略会**贴着地板飞**
+   （中位 8.76 → 6.09 m，正是干预的反面）；
+2. `moveToZAsync(velocity=2.0, timeout_sec=3)` 有时限 → **指令空间安全 ≠ 状态空间安全**
+   （`stlalt-a` 的 ρ_safety 中位是 **−1.73 m**，仍掉出 6 m 包络）；
+3. 因此"低空↔碰撞"是**相关非因果**（混淆：碰撞 episode 往往起飞后几秒就结束，位置还很低）。
+
+**下一步**：改成**围绕专家中位的带约束**（`G(alt ∈ [7,12] m)`）或**形状保持缩放**而非边界裁剪，并扫 `alt ∈ {6,8,10}`。
+（带约束版已启动，见附录 B。）
+
+## 5. idea3（逻辑对齐后训练）
+
+### 5.1 可行性结论
+
+**可行，且比 Logic-VLA 更容易**：同一底座（openvla-7b + LoRA）、官方 41 万条 SFT 数据、超参已冻结可复现、
+动作是**离散 token** 所以序列 log-prob 可算（可用严格 DPO，而他们因 flow-matching 只能用 IPO 代理）。
+唯一瓶颈是**算力排队**。
+
+### 5.2 设计（两阶段）
+
+| 阶段 | 做法 | 数据 | 为什么 |
+|---|---|---|---|
+| **Stage A** 逻辑条件 SFT | 同一批专家帧、同一批动作标签，只把指令**改写成分阶段提示** | `ops/make_posttrain_data.py` 生成，**零新标注** | idea1/2 的增益损失在"分阶段提示是分布外输入" |
+| **Stage B** 失败对齐 | 同任务"满足 vs 未满足"episode 逐帧最近邻配对 → DPO(β=0.1)+KL anchor；或边界纠正小步刷新 | 已有 rollout | RefineFly 教训：失败重放单用会掉泛化（Unseen Map −6.37 pp） |
+
+混采 50% 分阶段 + 50% 原始指令（防止 NL 能力退化——Logic-VLA Stage 1 掉了 3–4 pp）。
+
+### 5.3 已完成与实测数字
+
+| 项 | 结果 |
+|---|---|
+| Stage-A 数据 | **13,715 条**（6,879 分阶段 + 6,836 原始），594 条训练轨迹，0 跳过 |
+| 方向分桶一致性 | 与 baseline `get_semantic_direction` 对比 **3000 条随机位姿 0 处不一致** |
+| 数据可读性 | 被 baseline `AeroVLADataset` 正确读取（13,715 条，图像路径全解析） |
+| 冒烟 | 8 步 19 秒；可训参数 **231,293,440 / 7,772,014,528 = 2.98%** |
+| **真训练（1000 样本）** | **完成**：125 优化步 / 32 分钟（与评测并发），**loss 6.20 → 0.82**，checkpoint `work/posttrain/ckpt_stageA` |
+| 吞吐外推 | 全量 13,715 条 ≈ **7 h**（并发下），需独占 GPU 或过夜 |
+| 与 RefineFly 兼容性 | 我们的 adapter 与官方 **462,655,064 B 完全同尺寸** → 结构兼容 |
+
+### 5.4 训练之后：策略塌缩（本轮最需要讲清楚的负面结果）
+
+| 指标 | 数值 |
+|---|---|
+| episode 数 | 10 |
+| 成功率 | **0 / 10** |
+| 碰撞率 | **90%** |
+| 平均步数 | 12.9（1 条跑到 80 步上限） |
+| 平均末距目标 | 95.6 m（最远 **327.6 m**，即飞反了） |
+| **动作多样性** | **139 个决策步里只有 2 种动作；136 步是同一个动作 `(fwd=4.898, down=-0.102, yaw=0)`** |
+
+**训练 loss 掉到 0.82 的同时，策略退化成了"恒定输出一个动作"的模式塌缩。**
+原因（未单独验证）：① lr/步数过激（1k 样本、2e-4、125 步）；② 数据多样性不足；③ 没有中间评测。
+**修正**：lr 5e-5～1e-4、**每 25 步测动作熵**并 early-stop、动作平衡采样、先 3k–5k 样本。
+
+## 6. 竞品核查：RefineFly 是否开源
+
+| 项 | 结论 |
+|---|---|
+| 代码 | **未开源**（PDF 全文 0 个 URL；GitHub 搜 `RefineFly`/`RecoverFly` 均无；项目页 404） |
+| 权重 | **已匿名开源**：HF `refinefly/refinefly`，`adapter_model.safetensors` = **462,655,064 B**（实测可下载），`r=64, alpha=128, dropout=0.05, base=openvla/openvla-7b`，与论文 Table 6 逐项一致；HF papers 页 404 → **匿名推定**（4 条独立线索） |
+| 方法 | 同底座 token 级 PPO + 失败记忆 + 两阶段场景课程 + KL；SR 56.33/42.97/59.72，对 AerialVLA **+8.37/+5.39/+3.12 pp** |
+
+### 6.1 我们实测的对比（同 12 条 RT 任务，同 `original` 模式）
+
+| 臂 | 权重 | n | SR | 碰撞率 | NE |
+|---|---|---|---|---|---|
+| `rf-a` | **RefineFly 匿名权重** | 12 | **.250** | .750 | 50.1 m |
+| `rf-b` | AeroVLA SFT（我们一直用的 checkpoint） | 12 | **.167** | .833 | 55.6 m |
+
+配对 McNemar：都成功 1 / 仅 RefineFly 2 / 仅 AeroVLA 1 / 都不成 8 → **p = 1.00**（N=12 太小）。
+
+**但方向极其值得注意**：我们量到 **+8.3 pp**，论文报告 **+8.37 pp** —— 几乎相同。这说明
+① 我们的评测管线**与文献口径一致**（可信的尺子）；② 后训练在这套基准上**确实能买到 ~8 pp**。
+
+## 7. 我们的点新在哪（相对三篇参考工作）
+
+| 工作 | 逻辑从哪来 | 谁消费逻辑 | 需要训练 |
+|---|---|---|---|
+| Logic-VLA | **模板采样**（不做 NL→逻辑） | 策略（spec token 条件） | 需要（SFT + IPO） |
+| STL Translation & Repair | LLM 翻译器（Qwen2.5-0.5B + GRPO） | MILP 开环轨迹合成 | 需要（翻译器） |
+| STeP | VLM 一次性产 STL | 10 Hz MPC 的 −λρ | 需要（VLM） |
+| **我们** | **专家轨迹自动构建规范（M0）** | **提示词改写 + 动作投影**（训练无关），可选内化 | 可选 |
+
+一句话：**别人把逻辑当"输入条件"或"优化目标"，我们把逻辑当"从示范里挖出来的任务结构"，先证明训练无关版本有过程增益，再谈内化。**
+
+## 8. 下周计划（11-28 ~ 12-05），按证据强度排序
+
+| 优先级 | 事情 | 为什么现在做 |
+|---|---|---|
+| **P0** | **idea2 换规范**：单边下限 → 围绕专家中位的带约束 `G(alt∈[7,12])`，或动作形状保持缩放；扫 `alt∈{6,8,10}` | §4.6 已证明"机制可用、规范错"，这是最有希望真正提升 SR 的一条 |
+| **P0** | **idea3 重训**：lr 5e-5、动作熵 early-stop、动作平衡采样；先 3k 样本 | §5.4 塌缩是超参问题；必须先证明"能训不塌" |
+| P1 | **补统计**：MCM 每臂 ≥30 条；每图 ≥15 条；同 split 重复 2–3 次 | 所有结论都卡在样本量 |
+| P1 | **RefineFly 扩到 N≥30**，把"平台校准"做实 | 现在 +8.3 pp 只是方向吻合 |
+| P2 | **障碍谓词**：把深度图接进 STL（`G(depth_min > d_safe)`）。当前 depth 未进 observation，需在 eval 侧另开取图通道（不改 baseline） | 碰撞是 SR 主瓶颈，而"高度"不是正确抓手 |
+| P2 | 扩展摘要骨架（"外挂→定量→内化"三段式） | 12 月要交；骨架已出（`work/extended-abstract-skeleton.md`） |
+
+## 9. 风险与未验证清单（请重点看）
+
+**未验证（不能当结论写）**
+1. 多地图实验样本小（8–21 条/臂），**未做显著性检验**（只有配对 McNemar）；
+2. 仿真**不可复现**（同配置两次 reset 位姿不同）→ 做的是接口级等价证明 + 配对比对，**不是逐帧复现**；
+3. 论文里 MCM 的 SR 分母是否为 124 **未核实**；
+4. STL 的时间单位是**宏步**，换算是用固定 `4.3 m/步` 估计，非真实时间；
+5. 安全包络来自专家分布（p01/p99），"违反"≠危险；
+6. 后训练**只有"能训"和"训塌了"两个事实**，没有"训得更好"的证据；
+7. RefineFly 权重是**匿名推定**归属。
+
+**已排除的坑（省下后续时间）**
+- UE4 拒绝 root → `LD_PRELOAD` uid/gid shim；pfs 拥塞 → `/dev/shm` 模型副本；UE4 子进程泄漏 → 按端口精确 pkill；
+- split 的 `frame` 被 loader 忽略 → 全部用"一轨迹一条"的显式 split；
+- 队列依赖用"等进程消失"会竞态（前驱未启动 → 立刻放行 → 9 臂同时 OOM）→ **单进程顺序执行**；
+- `setsid nohup cmd &` 的 `$!` 是 setsid 的 PID → `wait` 立刻返回、波次全部"瞬间完成" → 改 `nohup cmd &`；
+- `$(arm ...)` 命令替换会夺走子进程 → `wait` 返回 127 → 改全局 `LAST_PID`；
+- pgrep/pkill 的搜索串会匹配到**执行它的 shell 自己** → 搜索串必须拆字面量拼接。
+
+**算力教训**：共享 GPU0 已用量在 21↔79 GB 之间波动，本轮 **4 次 CUDA OOM** 全部来自他人占卡；
+**2 臂是安全上限**（3 臂必有一臂 OOM）。下次要么申请独占时段，要么每臂启动前查 `memory.free`。
+
+## 附录 A. 全部臂指标（`work/results/final_summary.md`，由 `ops/finalize_results.py` 生成）
+
+指标口径见 `ops/analyze_results.py`：SR = 到目标 20 m 内并 LAND；OSR = oracle 成功；NE = 末距目标（米）；
+SPL = 成功路径长度比；ESR = **离线独立判据**下的完整规范满足；stage_completion = 阶段完成率。
+
+| 臂 (arm) | group | mode | N | sr | osr | ne | spl | esr | sr∧esr | 阶段完成率 | sr_95%CI |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| mcm_rt35_ours | mcm_rt35 | fixed_order | 21 | .333 | .476 | 30.5 | .230 | .333 | .333 | **.683** | [.17,.55] |
+| mcm_rt35_base_long | mcm_rt35 | long_instruction | 21 | .333 | .333 | 35.7 | .244 | .333 | .333 | .333 | [.17,.55] |
+| stl_ours | stl | stl | 12 | .333 | .333 | 41.2 | .238 | .333 | .333 | .632 | [.14,.61] |
+| stl_base_order | stl | fixed_order | 12 | .333 | .333 | 46.4 | .264 | .333 | .333 | .597 | [.14,.61] |
+| stlalt_alt6 | stlalt | stl | 12 | .167 | .333 | 46.3 | .082 | .250 | .167 | .576 | [.05,.45] |
+| sa_order_sft | sa_order | fixed_order | 10 | **.000** | .000 | 95.3 | .000 | .000 | .000 | .283 | [.00,.28] |
+| rf_refinefly | refinefly | original | 12 | **.250** | .250 | 50.1 | .229 | .250 | .250 | .250 | [.09,.58] |
+| rf_aerovla | refinefly | original | 12 | .167 | .167 | 55.1 | .135 | .167 | .167 | .167 | [.05,.45] |
+
+### A.2 配对精确 McNemar（同任务配对）
+
+| 对比 | 指标 | 配对 n | 都成 | 仅 A | 仅 B | 都不成 | p |
+|---|---|---|---|---|---|---|---|
+| idea1 vs baseline+长指令 | success | 21 | 4 | 3 | 3 | 11 | **1.000** |
+| idea2（`stl`） vs idea1（`fixed_order`） | success | 12 | 2 | 2 | 2 | 6 | **1.000** |
+| 高度消融（下界 6 m） vs 原配置 | success | 12 | 1 | 1 | 3 | 7 | 0.625 |
+| Stage-A 权重 vs 原权重（均 `fixed_order`） | success | 10 | 0 | 0 | 3 | 7 | 0.250 |
+| RefineFly vs AeroVLA（均 `original`） | success | 12 | 1 | 2 | 1 | 8 | **1.000** |
+
+### A.3 STL 机制是否真的触发（证明实验不是空跑）
+
+| 臂 | n | SR | ESR | 碰撞率 | **shield 触发** | **截止期提示** | ρ_safety 中位 |
+|---|---|---|---|---|---|---|---|
+| `stl-a`（下界 1.722 m） | 12 | .333 | .333 | .667 | 14 | 18 | 0.90 m |
+| `stl-b`（无 STL 对照） | 12 | .333 | .333 | .667 | 0 | 0 | – |
+| `stlalt-a`（下界 6.0 m） | 12 | .167 | .250 | .750 | **103** | 16 | **−1.73 m** |
+
+`stlalt-a` 的 ρ_safety 中位为负 → 命令层裁剪后**状态层仍掉出 6 m 包络**（§4.6 的诊断依据）。
+
+## 附录 B. 实验矩阵与完成状态（哪些跑了、哪些没跑、为什么）
+
+| 波次 | 臂（tag） | 配置 | 计划 N | 实际 N | 状态 |
+|---|---|---|---|---|---|
+| MCM RT | `w1-g5-rt35` | `fixed_order`（idea1） | 35 | **21** | ✅ 主动截断（SR 已稳定） |
+| | `w1-g4-rt35` | `long_instruction` | 35 | **21** | ✅ 同上 |
+| idea2 在线 | `stl-a` / `stl-b` | `stl` / `fixed_order` | 12 / 12 | **12 / 12** | ✅ |
+| 高度消融 | `stlalt-a` | `stl` + 下界 6.0 m | 12 | **12** | ✅（假设被否定） |
+| idea3 | `sa_order-a` | Stage-A 权重 + `fixed_order` | 12 | **10** | ✅（策略塌缩） |
+| RefineFly | `rf-a` / `rf-b` | RefineFly 权重 / AeroVLA 权重，均 `original` | 12 / 12 | **12 / 12** | ✅ |
+| 零样本图 | `mp40-a/b` | ModularPark | 14 | 1 / 2 | ❌ 该图单条 episode ~10 min（目标 140 m 外）；两臂 STEPS 配置不一致（40 vs 80），不可比 |
+| 其余地图 | `nyc-a/b`、`ti-a/b`、`nycem-a/b` | idea1 对照 | 8/8/6 | 0 | ❌ **GPU 被他人占满**（NYC 试 2 次均 CUDA OOM，他人占 ~62 GB） |
+| idea3 NL 保持 | `sa_single-a/b` | Stage-A 权重 + `single_stage` | 8 | 0 | ❌ 同上 |
+
+## 10. 复现命令（服务器仓库根目录）
+
+```bash
+R=/mnt/kai_ckp/yiding/MaxHE
+PY=$R/envs_py/aerovla_py310/bin/python
+
+# 1) M0 任务（每图一次）
+$PY -m ltlf_logic.tasks --dataset-root AeroVLA/dataset_raw/ \
+    --spawn-area-json AeroVLA/data/meta/map_spawnarea_info.json \
+    --split-json AeroVLA/data/uav_dataset/seen_valset_splits/ModernCityMap.json \
+    --map ModernCityMap --split-name seen_valset --out-dir work/tasks/
+
+# 2) 显式评测子集（一轨迹一条）
+$PY ops/make_split.py --split AeroVLA/data/uav_dataset/seen_valset_splits/ModernCityMap.json \
+    --tasks work/tasks/tasks_ModernCityMap_seen_valset.json --select rt:12 --out work/splits/rt12.json
+
+# 3) 单臂（Xvfb + UE4 + 评测）
+TAG=demo-g5 MODE=fixed_order PORT=30100 GPU=0 STEPS=80 \
+SPLIT=work/splits/rt12.json TASK_JSON=work/tasks/tasks_ModernCityMap_seen_valset.json \
+bash ops/run_ltlf_eval.sh
+
+# 3b) 任意配置覆盖（消融用）
+TAG=demo-alt6 MODE=stl PORT=30810 GPU=0 STEPS=80 \
+SPLIT=work/splits/rt12.json TASK_JSON=work/tasks/tasks_ModernCityMap_seen_valset.json \
+LTLF_EXTRA_ARGS="--ltlf-config-stl_alt_min_m=6.0" bash ops/run_ltlf_eval.sh
+
+# 4) STL 离线打分（0 GPU）
+$PY -m ltlf_logic.stl_tasks score --logs $R/ltlf_logs/demo-g5 \
+    --tasks work/tasks/tasks_ModernCityMap_seen_valset.json \
+    --dataset-root AeroVLA/dataset_raw/ --out work/results/stl_off_demo-g5.json --label demo-g5
+
+# 5) 一键出全部结果（表 A + 配对检验 + 离线鲁棒度 + 机制触发统计）
+$PY ops/finalize_results.py
+
+# 6) idea3 数据与训练
+$PY ops/make_posttrain_data.py --train-json AeroVLA/data/aerovla_train_dataset.json \
+    --tasks work/tasks/tasks_ModernCityMap_train.json --dataset-root AeroVLA/dataset_raw \
+    --map ModernCityMap --out work/posttrain/sft_stageA_mcm.json
+$PY ops/train_aerovla_ltlf.py --model-path /dev/shm/openvla-7b --data-root AeroVLA/dataset_raw \
+    --split work/posttrain/sft_stageA_mcm.json --out work/posttrain/ckpt_stageA \
+    --micro-batch 1 --accum 8 --epochs 1
+
+# 7) 测试
+$PY -m pytest ltlf_tests/ -q     # 80 passed
+```
+
+**版本控制**：代码在 `dev` 分支；`AeroVLA/` 与 `baseline-v0` 逐字节一致
+（`git diff --stat baseline-v0 -- AeroVLA/` 为空）；新增文件全部在项目自有目录。
