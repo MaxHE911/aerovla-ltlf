@@ -39,6 +39,9 @@ ARMS = [
     # --- idea 3: Stage-A logic-conditioned SFT checkpoint vs original checkpoint ---
     ("sa_order_sft", "sa_order-a", "sa_order", "fixed_order"),
     ("sa_order_base", "sa_order-b", "sa_order", "fixed_order"),
+    # retrain attempts (see weekly report 5.5/5.6): v3 = from base, v4 = continued from the SFT adapter
+    ("sa3_from_base", "sa3-a", "sa_retrain", "fixed_order"),
+    ("sa4_from_ckpt", "sa4-a", "sa_retrain", "fixed_order"),
     ("sa_single_sft", "sa_single-a", "sa_single", "single_stage"),
     ("sa_single_base", "sa_single-b", "sa_single", "single_stage"),
     # --- RefineFly post-trained weights vs AeroVLA SFT, same mode ---
