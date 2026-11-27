@@ -1,5 +1,5 @@
 
-# 自动生成的结果汇总（2026-11-27 14:54:28）
+# 自动生成的结果汇总（2026-11-27 15:12:48）
 
 
 ## A. 全部臂（ops/collect_arms.py；指标口径见 ops/analyze_results.py）
@@ -13,11 +13,11 @@
 | stlband_band | stlband | stl | 12 | 0.250 | 0.250 | 45.536 | 0.201 | 0.250 | 0.250 | 0.542 | [0.09, 0.53] |
 | sa_order_sft | sa_order | fixed_order | 10 | 0.000 | 0.000 | 95.316 | 0.000 | 0.000 | 0.000 | 0.283 | [-0.00, 0.28] |
 | sa3_from_base | sa_retrain | fixed_order | 8 | 0.000 | 0.000 | 94.586 | 0.000 | 0.000 | 0.000 | 0.281 | [0.00, 0.32] |
-| sa4_from_ckpt | sa_retrain | fixed_order | 8 | 0.625 | 0.625 | 16.425 | 0.450 | 0.625 | 0.625 | 0.844 | [0.31, 0.86] |
+| sa4_from_ckpt | sa_retrain | fixed_order | 12 | 0.417 | 0.500 | 31.131 | 0.300 | 0.417 | 0.417 | 0.667 | [0.19, 0.68] |
 | rf_refinefly | refinefly | original | 12 | 0.250 | 0.250 | 49.180 | 0.199 | 0.250 | 0.250 | 0.250 | [0.09, 0.53] |
 | rf_aerovla | refinefly | original | 12 | 0.167 | 0.167 | 55.089 | 0.135 | 0.167 | 0.167 | 0.167 | [0.05, 0.45] |
 | nyc_ours | nyc | fixed_order | 8 | 0.000 | 0.000 | 166.905 | 0.000 | 0.000 | 0.000 | 0.229 | [0.00, 0.32] |
-| nyc_base_long | nyc | long_instruction | 7 | 0.000 | 0.143 | 112.968 | 0.000 | 0.143 | 0.000 | 0.143 | [0.00, 0.35] |
+| nyc_base_long | nyc | long_instruction | 8 | 0.000 | 0.125 | 106.135 | 0.000 | 0.125 | 0.000 | 0.125 | [0.00, 0.32] |
 
 ## B. 按任务配对的精确 McNemar 检验（ops/paired_compare.py）
 
@@ -29,8 +29,8 @@
 | rf | esr_accepted | 12 | 1 | 2 | 1 | 8 | 1.000 |
 | mp40 | success | 1 | 0 | 0 | 0 | 1 | 1.000 |
 | mp40 | esr_accepted | 1 | 0 | 0 | 0 | 1 | 1.000 |
-| nyc | success | 7 | 0 | 0 | 0 | 7 | 1.000 |
-| nyc | esr_accepted | 7 | 0 | 0 | 1 | 6 | 1.000 |
+| nyc | success | 8 | 0 | 0 | 0 | 8 | 1.000 |
+| nyc | esr_accepted | 8 | 0 | 0 | 1 | 7 | 1.000 |
 
 ## C. STL 离线鲁棒度（ltlf_logic.stl_tasks，ModernCityMap）
 
