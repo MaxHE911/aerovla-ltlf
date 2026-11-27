@@ -49,7 +49,13 @@ def main(argv=None) -> int:
     ap.add_argument("--lora-alpha", type=int, default=128)
     ap.add_argument("--lora-dropout", type=float, default=0.05)
     ap.add_argument("--save-steps", type=int, default=2000)
+    ap.add_argument("--save-total-limit", type=int, default=5)
     ap.add_argument("--logging-steps", type=int, default=10)
+    ap.add_argument("--entropy-monitor", type=int, default=0,
+                    help="if >0, also log the mean predictive entropy (nats) over the action tokens "
+                         "every N optimizer steps; entropy collapsing to ~0 is the earliest sign of "
+                         "the mode collapse observed on 2026-11-27 (loss 6.2 -> 0.8 while the policy "
+                         "started emitting one constant action)")
     args = ap.parse_args(argv)
 
     repo = os.path.abspath(args.repo)
@@ -149,7 +155,7 @@ def main(argv=None) -> int:
         dataloader_num_workers=args.workers,
         logging_steps=args.logging_steps,
         save_steps=args.save_steps,
-        save_total_limit=2,
+        save_total_limit=args.save_total_limit,
         num_train_epochs=args.epochs,
         max_steps=args.max_steps,
         fp16=False,
@@ -159,11 +165,53 @@ def main(argv=None) -> int:
         ddp_find_unused_parameters=False,
     )
 
-    trainer = transformers.Trainer(
+    class EntropyTrainer(transformers.Trainer):
+        """Trainer that additionally reports the predictive entropy over the action tokens.
+
+        Motivation (measured 2026-11-27): 125 optimizer steps at lr 2e-4 drove the loss from 6.20 to
+        0.82 while the closed-loop policy degenerated into emitting one constant action
+        (136/139 steps identical).  The training loss therefore does not track policy quality, but the
+        entropy of the action-token distribution does: it collapses before the behaviour does.  Set
+        ``--entropy-monitor N`` to log it every N optimizer steps and stop early when it flattens.
+        """
+
+        def __init__(self, *a, every: int = 0, **kw):
+            super().__init__(*a, **kw)
+            self.every = every
+            self._logits = None
+            self._labels = None
+
+        def compute_loss(self, model, inputs, return_outputs=False, **kw):
+            out = model(**inputs)
+            logits = out[1] if isinstance(out, tuple) else getattr(out, "logits", None)
+            if logits is not None and self.every:
+                self._logits = logits.detach()
+                self._labels = inputs.get("labels")
+            return out[0] if isinstance(out, tuple) else out.loss
+
+        def log(self, logs):
+            if self.every and self._logits is not None and self._labels is not None:
+                if self.state.global_step % self.every == 0:
+                    try:
+                        mask = self._labels != -100
+                        if bool(mask.any()):
+                            lg = self._logits[mask].float()
+                            logp = torch.log_softmax(lg, dim=-1)
+                            ent = -(logp.exp() * logp).sum(-1).mean().item()
+                            logs = dict(logs)
+                            logs["action_token_entropy_nats"] = round(float(ent), 4)
+                    except Exception:
+                        pass
+                self._logits = None
+                self._labels = None
+            super().log(logs)
+
+    trainer = EntropyTrainer(
         model=model,
         args=training_args,
         train_dataset=dataset,
         data_collator=data_collator,
+        every=args.entropy_monitor,
     )
     print("[ltlf-sft] starting training")
     trainer.train()
@@ -175,3 +223,4 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -34,6 +34,7 @@ ARMS = [
     ("stl_base_order", "stl-b", "stl", "fixed_order"),
     # --- safety-envelope ablation: altitude floor 6.0 m vs expert p01 ---
     ("stlalt_alt6", "stlalt-a", "stlalt", "stl"),
+    ("stlband_band", "stlband-a", "stlband", "stl"),
     ("stlalt_p01", "stlalt-b", "stlalt", "stl"),
     # --- idea 3: Stage-A logic-conditioned SFT checkpoint vs original checkpoint ---
     ("sa_order_sft", "sa_order-a", "sa_order", "fixed_order"),
